@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hotspot_log version='160 1' process='3208' time_ms='1230206655278'>
+<vm_version>
+<name>
+Java HotSpot(TM) Client VM
+</name>
+<release>
+11.2-b01-fastdebug
+</release>
+<info>
+Java HotSpot(TM) Client VM (11.2-b01-fastdebug) for windows-x86 JRE (1.6.0_12-ea-fastdebug-b02), built on Dec  8 2008 04:26:09 by &quot;java_re&quot; with MS VC++ 7.1
+</info>
+</vm_version>
+<vm_arguments>
+<args>
+-Dapplication.home=C:\Program Files\Java\jdk1.6.0_12 -Xms8m -Xss4m -ea:com.sun.tools... 
+</args>
+<command>
+com.sun.tools.javac.Main ./files/Applet_Sub1.java ./files/Canvas_Sub1.java ./files/Class1.java ./files/Class10.java ./files/Class101.java ./files/Class102.java ./files/Class103.java ./files/Class104.java ./files/Class105.java ./files/Class105_Sub1.java ./files/Class106.java ./files/Class107.java ./files/Class108.java ./files/Class109.java ./files/Class11.java ./files/Class110.java ./files/Class112.java ./files/Class113.java ./files/Class114.java ./files/Class115.java ./files/Class116.java ./files/Class118.java ./files/Class119.java ./files/Class12.java ./files/Class120.java ./files/Class121.java ./files/Class122.java ./files/Class123.java ./files/Class124.java ./files/Class125.java ./files/Class126.java ./files/Class127.java ./files/Class128.java ./files/Class13.java ./files/Class13_Sub1.java ./files/Class13_Sub2.java ./files/Class13_Sub3.java ./files/Class13_Sub4.java ./files/Class14.java ./files/Class15.java ./files/Class15_Sub1.java ./files/Class16.java ./files/Class17.java ./files/Class18.java ./files/Class1_Sub1.java ./files/Class1_Sub2.java ./files/Class1_Sub3.java ./files/Class1_Sub3_Sub1.java ./files/Class1_Sub4.java ./files/Class1_Sub5.java ./files/Class1_Sub6.java ./files/Class1_Sub6_Sub1.java ./files/Class1_Sub6_Sub2.java ./files/Class1_Sub7.java ./files/Class2.java ./files/Class20.java ./files/Class21.java ./files/Class21_Sub1.java ./files/Class22.java ./files/Class23.java ./files/Class24.java ./files/Class25.java ./files/Class26.java ./files/Class27.java ./files/Class28.java ./files/Class29.java ./files/Class3.java ./files/Class30.java ./files/Class31.java ./files/Class32.java ./files/Class33.java ./files/Class34.java ./files/Class35.java ./files/Class35_Sub1.java ./files/Class35_Sub2.java ./files/Class36.java ./files/Class37.java ./files/Class38.java ./files/Class39.java ./files/Class4.java ./files/Class40.java ./files/Class41.java ./files/Class42.java ./files/Class43.java ./files/Class44.java ./files/Class45.java ./files/Class46.java ./files/Class47
+</command>
+<launcher>
+SUN_STANDARD
+</launcher>
+<properties>
+java.vm.specification.version=1.0
+java.vm.specification.name=Java Virtual Machine Specification
+java.vm.specification.vendor=Sun Microsystems Inc.
+java.vm.version=11.2-b01-fastdebug
+java.vm.name=Java HotSpot(TM) Client VM
+java.vm.vendor=Sun Microsystems Inc.
+java.vm.info=mixed mode, sharing
+java.ext.dirs=C:\Program Files\Java\jdk1.6.0_12\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext
+java.endorsed.dirs=C:\Program Files\Java\jdk1.6.0_12\jre\lib\endorsed
+sun.boot.library.path=C:\Program Files\Java\jdk1.6.0_12\jre\bin
+java.library.path=C:\Program Files\Java\jdk1.6.0_12\bin;.;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;
+java.home=C:\Program Files\Java\jdk1.6.0_12\jre
+java.class.path=C:\Program Files\Java\jdk1.6.0_12\lib\tools.jar;C:\Program Files\Java\jdk1.6.0_12\classes
+sun.boot.class.path=C:\Program Files\Java\jdk1.6.0_12\jre\lib\resources.jar;C:\Program Files\Java\jdk1.6.0_12\jre\lib\rt.jar;C:\Program Files\Java\jdk1.6.0_12\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.6.0_12\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.6.0_12\jre\lib\jce.jar;C:\Program Files\Java\jdk1.6.0_12\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.6.0_12\jre\classes
+application.home=C:\Program Files\Java\jdk1.6.0_12
+sun.java.launcher=SUN_STANDARD
+</properties>
+</vm_arguments>
+<tty>
+<writer thread='3216'/>
+C1 Runtime statistics:
+ _resolve_invoke_virtual_cnt:     871
+ _resolve_invoke_opt_virtual_cnt: 1732
+ _resolve_invoke_static_cnt:      243
+ _handle_wrong_method_cnt:        0
+ _ic_miss_cnt:                    365
+ _generic_arraycopy_cnt:          8869
+ _primitive_arraycopy_cnt:        334776
+ _oop_arraycopy_cnt:              394
+ _arraycopy_slowcase_cnt:         0
+ _new_type_array_slowcase_cnt:    32
+ _new_object_array_slowcase_cnt:  2
+ _new_instance_slowcase_cnt:      252
+ _new_multi_array_slowcase_cnt:   0
+ _monitorenter_slowcase_cnt:      0
+ _monitorexit_slowcase_cnt:       0
+ _patch_code_slowcase_cnt:        10
+ _throw_range_check_exception_count:            0:
+ _throw_index_exception_count:                  0:
+ _throw_div0_exception_count:                   0:
+ _throw_null_pointer_exception_count:           0:
+ _throw_class_cast_exception_count:             0:
+ _throw_incompatible_class_change_error_count:  0:
+ _throw_array_store_exception_count:            0:
+ _throw_count:                                  0:
+
+<statistics type='nmethod'>
+Statistics for 9 native nmethods:
+ N. total size  = 5160
+ N. relocation  = 444
+ N. main code   = 3072
+Statistics for 1035 bytecoded nmethods:
+ total in heap  = 2680988
+ relocation     = 224256
+ main code      = 825120
+ stub code      = 102117
+ constants      = 1319
+ scopes data    = 596932
+ scopes pcs     = 618720
+ dependencies   = 8384
+ handler table  = 32076
+ nul chk table  = 56088
+ oops           = 23744
+Debug Data Chunks: 110247, shared 13700+29772, non-SP&apos;s elided 1762
+PcDesc Statistics:  16550 queries, 15.36 comparisons per query
+  caches=1035 queries=16550/0, hits=0+2047, tests=87327+166922, adds=14503
+</statistics>
+<tty_done stamp='36.131'/>
+</tty>
+<hotspot_log_done stamp='36.131'/>
+</hotspot_log>

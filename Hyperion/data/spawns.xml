@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<list>
+    <npc>
+        <id>1</id>
+        <direction>0</direction>
+        <spawnLocation>
+            <x>3199</x>
+            <y>3200</y>
+            <z>0</z>
+        </spawnLocation>
+    </npc>
+</list>
