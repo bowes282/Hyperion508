@@ -23,14 +23,16 @@ public class RubyEnvironment implements ScriptEnvironment {
      * The scripting container.
      */
     private ScriptingContainer container = new ScriptingContainer();
+    
     /**
      * The script path
      */
     private File scriptBasePath;
+    
     /**
      * The script parameters
      */
-    final Map<String, Object> params = new HashMap<>();
+    private Map<String, Object> paramaters = new HashMap<>();
 
     /**
      * Creates the jRuby Script Environment
@@ -39,11 +41,7 @@ public class RubyEnvironment implements ScriptEnvironment {
      */
     public RubyEnvironment(File scriptStartingPoint) {
         this.scriptBasePath = scriptStartingPoint;
-        /*
-         * The SINGLETHREADED context makes sure that the container and
-         * associated scripts are reloaded fully each time the service is
-         * refreshed or updated.
-         */
+        
         container = new ScriptingContainer(LocalContextScope.SINGLETHREAD);
         container.setLoadPaths(Arrays.asList(scriptStartingPoint.getPath()));
         container.setCompileMode(RubyInstanceConfig.CompileMode.JIT);
@@ -80,7 +78,7 @@ public class RubyEnvironment implements ScriptEnvironment {
      */
     @Override
     public void setContext(ScriptContext context) {
-        container.put("game", context);
+        container.put("$ctx", context);
     }
 
     /**
@@ -102,7 +100,7 @@ public class RubyEnvironment implements ScriptEnvironment {
      */
     @Override
     public RubyEnvironment setParams(String key, Object args) {
-        params.put(key, args);
+        paramaters.put(key, args);
         return this;
     }
 
@@ -113,6 +111,6 @@ public class RubyEnvironment implements ScriptEnvironment {
      */
     @Override
     public Map<String, Object> getParams() {
-        return params;
+        return paramaters;
     }
 }
