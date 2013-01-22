@@ -14,8 +14,7 @@ public class MapDataPacker {
     /**
      * Logging class.
      */
-    private static final Logger logger = Logger.getLogger(MapDataPacker.class
-            .getName());
+    private static final Logger logger = Logger.getLogger(MapDataPacker.class.getName());
 
     /**
      * Prevent an instance being made.

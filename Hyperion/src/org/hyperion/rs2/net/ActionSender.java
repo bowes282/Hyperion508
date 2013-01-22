@@ -86,7 +86,7 @@ public final class ActionSender {
         player.getEquipment().addListener(new EquipmentContainerListener(player));
         player.getEquipment().addListener(new WeaponContainerListener(player));
 
-        World.getWorld().getScriptEvents().send("login", player, null);
+        World.getWorld().getScriptEvents().sendPacketEvent("login", player, null);
         return this;
     }
 

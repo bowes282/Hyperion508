@@ -70,7 +70,7 @@ public final class PacketManager {
     public void handle(IoSession session, Packet packet) {
         final Player player = (Player) session.getAttribute("player");
         try {
-            World.getWorld().getScriptEvents().send(null, player, packetHandlers[packet.getOpcode()].handle(player, packet));
+            World.getWorld().getScriptEvents().sendPacketEvent(null, player, packetHandlers[packet.getOpcode()].handle(player, packet));
         } catch (final Exception ex) {
             logger.log(Level.SEVERE, "Exception handling packet.", ex);
             session.close(false);

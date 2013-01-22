@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hyperion.rs2.model.Entity;
+import org.hyperion.rs2.model.NPC;
 import org.hyperion.script.impl.RubyEnvironment;
 
 /**
@@ -34,7 +36,7 @@ public class ScriptEvents {
     public ScriptEvents(World world) {
         this.world = world;
     }
-
+    
     /**
      * Sends the event
      *
@@ -42,7 +44,7 @@ public class ScriptEvents {
      * @param player The player to send the event to
      * @param packetRep The packet the packet related to the event
      */
-    public void send(String eventName, Player player, PacketListener packetRep) {
+    public void sendPacketEvent(String eventName, Player player, PacketListener packetRep) {
         /**
          * eventName can be null if this is a Packet event, and packetRep can be
          * null if this is a server tick event.

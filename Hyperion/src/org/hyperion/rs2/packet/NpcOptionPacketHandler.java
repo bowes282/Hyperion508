@@ -9,6 +9,9 @@ import org.hyperion.rs2.model.World;
 import org.hyperion.rs2.net.Packet;
 
 import java.util.logging.Logger;
+import org.hyperion.rs2.packet.impl.ButtonClickPacket;
+import org.hyperion.rs2.packet.impl.NpcOptionPacket;
+import org.hyperion.rs2.packet.impl.NpcOptionPacket.NpcOptionAttack;
 
 /**
  * Created with IntelliJ IDEA. User: black flag Date: 1/15/13 Time: 9:19 PM
@@ -45,8 +48,7 @@ public class NpcOptionPacketHandler implements PacketHandler {
              * Attack.
              */
             case 123:
-                attack(player, packet);
-                break;
+                return attack(player, packet);
         }
         return new DefaultPacket();
     }
@@ -57,17 +59,16 @@ public class NpcOptionPacketHandler implements PacketHandler {
      * @param player The player
      * @param packet The packet
      */
-    private void attack(final Player player, Packet packet) {
+    private PacketListener attack(final Player player, Packet packet) {
         int id = packet.getShort() & 0xFFFF;
-        if (id < 0 || id >= Constants.MAX_NPCS) {
-            return;
-        }
+        
         player.getActionSender().sendDebugPacket(packet.getOpcode(), "NPC Attack Option",
                 new Object[]{"id=" + id});
 
         final NPC npc = (NPC) World.getWorld().getNPCs().get(id);
         player.face(npc.getLocation());
-        //combat crap here
+        
+        return new NpcOptionAttack(npc);
     }
 
     /**
