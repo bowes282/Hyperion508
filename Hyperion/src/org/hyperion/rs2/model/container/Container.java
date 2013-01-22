@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Container {
+
     /**
      * The type of container.
      *
@@ -24,9 +25,7 @@ public class Container {
          * A container which always stacks, e.g. the bank, regardless of the
          * item.
          */
-        ALWAYS_STACK,
-    }
-
+        ALWAYS_STACK,}
     /**
      * The capacity of this container.
      */
@@ -51,7 +50,7 @@ public class Container {
     /**
      * Creates the container with the specified capacity.
      *
-     * @param type     The type of this container.
+     * @param type The type of this container.
      * @param capacity The capacity of this container.
      */
     public Container(Type type, int capacity) {
@@ -150,7 +149,7 @@ public class Container {
      *
      * @param item The item.
      * @return <code>true</code> if the item was added, <code>false</code> if
-     *         not.
+     * not.
      */
     public boolean add(Item item) {
         if (item.getDefinition().isStackable()
@@ -255,7 +254,7 @@ public class Container {
      * Sets an item.
      *
      * @param index The position in the container.
-     * @param item  The item.
+     * @param item The item.
      */
     public void set(int index, Item item) {
         items[index] = item;
@@ -312,7 +311,7 @@ public class Container {
      *
      * @param slot The slot.
      * @return <code>true</code> if an item is present, <code>false</code>
-     *         otherwise.
+     * otherwise.
      */
     public boolean isSlotUsed(int slot) {
         return items[slot] != null;
@@ -323,7 +322,7 @@ public class Container {
      *
      * @param slot The slot.
      * @return <code>true</code> if an item is not present, <code>false</code>
-     *         otherwise.
+     * otherwise.
      */
     public boolean isSlotFree(int slot) {
         return items[slot] == null;
@@ -343,7 +342,7 @@ public class Container {
      * Removes an item.
      *
      * @param preferredSlot The preferred slot.
-     * @param item          The item to remove.
+     * @param item The item to remove.
      * @return The number of items removed.
      */
     public int remove(int preferredSlot, Item item) {
@@ -356,7 +355,7 @@ public class Container {
                 removed = item.getCount();
                 set(slot,
                         new Item(stack.getId(), stack.getCount()
-                                - item.getCount()));
+                        - item.getCount()));
             } else {
                 removed = stack.getCount();
                 set(slot, null);
@@ -384,14 +383,14 @@ public class Container {
     /**
      * Transfers an item from one container to another.
      *
-     * @param from     The container to transfer from.
-     * @param to       The container to transfer to.
+     * @param from The container to transfer from.
+     * @param to The container to transfer to.
      * @param fromSlot The slot in the original container.
-     * @param id       The item id.
+     * @param id The item id.
      * @return A flag indicating if the transfer was successful.
      */
     public static boolean transfer(Container from, Container to, int fromSlot,
-                                   int id) {
+            int id) {
         final Item fromItem = from.get(fromSlot);
         if (fromItem == null || fromItem.getId() != id) {
             return false;
@@ -408,7 +407,7 @@ public class Container {
      * Swaps two items.
      *
      * @param fromSlot From slot.
-     * @param toSlot   To slot.
+     * @param toSlot To slot.
      */
     public void swap(int fromSlot, int toSlot) {
         final Item temp = get(fromSlot);
@@ -447,7 +446,7 @@ public class Container {
      * Inserts an item.
      *
      * @param fromSlot The old slot.
-     * @param toSlot   The new slot.
+     * @param toSlot The new slot.
      */
     public void insert(int fromSlot, int toSlot) {
         // we reset the item in the from slot

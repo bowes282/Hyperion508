@@ -10,7 +10,7 @@ public class Streams {
      * Writes a null-terminated string to the specified
      * <code>OutputStream</code>.
      *
-     * @param out    The output stream.
+     * @param out The output stream.
      * @param string The string.
      * @throws IOException if an I/O error occurs, such as the stream closing.
      */
@@ -23,7 +23,8 @@ public class Streams {
     }
 
     /**
-     * Reads a RuneScape string from the specified <code>InputStream</code>.
+     * Reads a RuneScape string from the specified
+     * <code>InputStream</code>.
      *
      * @param in The input stream.
      * @return The string.
@@ -60,9 +61,10 @@ public class Streams {
     }
 
     /**
-     * Writes a line to the specified <code>OutputStream</code>.
+     * Writes a line to the specified
+     * <code>OutputStream</code>.
      *
-     * @param out  The output stream.
+     * @param out The output stream.
      * @param line The line.
      * @throws IOException if an I/O error occurs, such as the stream closing.
      */
@@ -72,7 +74,8 @@ public class Streams {
     }
 
     /**
-     * Reads a line from the specified <code>InputStream</code>.
+     * Reads a line from the specified
+     * <code>InputStream</code>.
      *
      * @param in The input stream.
      * @return The line.

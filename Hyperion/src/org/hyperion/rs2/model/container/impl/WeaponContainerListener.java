@@ -65,8 +65,8 @@ public class WeaponContainerListener implements ContainerListener {
     /**
      * Sends weapon information.
      *
-     * @param id          The id.
-     * @param name        The name.
+     * @param id The id.
+     * @param name The name.
      * @param genericName The filtered name.
      */
     private void sendWeapon(int id, String name, String genericName) {
@@ -166,8 +166,8 @@ public class WeaponContainerListener implements ContainerListener {
      */
     private String filterWeaponName(String name) {
         final String[] filtered = new String[]{"Iron", "Steel", "Scythe",
-                "Black", "Mithril", "Adamant", "Rune", "Granite", "Dragon",
-                "Crystal", "Bronze"};
+            "Black", "Mithril", "Adamant", "Rune", "Granite", "Dragon",
+            "Crystal", "Bronze"};
         for (final String filter : filtered) {
             name = name.replaceAll(filter, "");
         }

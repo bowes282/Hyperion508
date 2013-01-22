@@ -1,35 +1,37 @@
-package org.hyperion.rs2.event;
+package org.hyperion.script;
 
 import org.hyperion.rs2.model.Player;
 import org.hyperion.rs2.model.World;
 import org.hyperion.rs2.packet.PacketListener;
-import org.hyperion.script.Called;
+import org.hyperion.script.util.Called;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hyperion.script.impl.RubyEnvironment;
 
 /**
  * @author parabolika
  */
-public class GameEvents {
+public class ScriptEvents {
 
     /**
      * The class logger
      */
-    private static final Logger logger = Logger.getLogger(GameEvents.class.toString());
-
+    private static final Logger logger = Logger.getLogger(ScriptEvents.class.toString());
     /**
      * The world
      */
     private World world;
 
     /**
-     * Creates the game events for the <code>world</code>
+     * Creates the game events for the
+     * <code>world</code>
      *
      * @param world The world
      */
-    public GameEvents(World world) {
+    public ScriptEvents(World world) {
         this.world = world;
     }
 
@@ -37,10 +39,10 @@ public class GameEvents {
      * Sends the event
      *
      * @param eventName The name of the event
-     * @param player    The client
-     * @param packetRep The packet
+     * @param player The player to send the event to
+     * @param packetRep The packet the packet related to the event
      */
-    public void sendEvent(String eventName, Player player, PacketListener packetRep) {
+    public void send(String eventName, Player player, PacketListener packetRep) {
         /**
          * eventName can be null if this is a Packet event, and packetRep can be
          * null if this is a server tick event.
@@ -52,15 +54,10 @@ public class GameEvents {
                 /**
                  * All PacketListeners should contain an annotation
                  */
-                logger.warning("Class " + packetRep.getClass().getName() + " is missing Callable annotation.");
+                logger.log(Level.WARNING, "Class {0} is missing Callable annotation.", packetRep.getClass().getName());
             }
         }
-        Map<String, Object> params = new HashMap<String, Object>();
-
-        params.put("player", player);
-        params.put("packet", packetRep);
-
-        world.getRubyEnvironment().callScripts(eventName, params);
+        world.getRubyEnvironment().callScripts(eventName, world.getRubyEnvironment()
+                .setParams("player", player).setParams("packet", packetRep).getParams());
     }
-
 }

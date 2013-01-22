@@ -1,5 +1,4 @@
-package org.hyperion.script;
-
+package org.hyperion.script.util;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,6 +1,7 @@
 package org.hyperion.rs2.model;
 
 public final class Appearance {
+
     /**
      * The npc index.
      */
@@ -84,8 +85,8 @@ public final class Appearance {
      */
     public int[] getLook() {
         return new int[]{gender, hairColour, torsoColour, legColour,
-                feetColour, skinColour, head, chest, arms, hands, legs, feet,
-                beard};
+                    feetColour, skinColour, head, chest, arms, hands, legs, feet,
+                    beard};
     }
 
     /**
@@ -112,7 +113,6 @@ public final class Appearance {
         feet = look[11];
         beard = look[12];
     }
-
 
     /**
      * Check if player is npc?

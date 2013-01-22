@@ -45,8 +45,8 @@ public class GenericWorldLoader implements WorldLoader {
         try {
             final OutputStream os = new GZIPOutputStream(new FileOutputStream(
                     "data/savedGames/"
-                            + NameUtils.formatNameForProtocol(player.getName())
-                            + ".dat.gz"));
+                    + NameUtils.formatNameForProtocol(player.getName())
+                    + ".dat.gz"));
             final IoBuffer buf = IoBuffer.allocate(1024);
             buf.setAutoExpand(true);
             player.serialize(buf);

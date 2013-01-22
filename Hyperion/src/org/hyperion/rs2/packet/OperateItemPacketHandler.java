@@ -9,10 +9,7 @@ import org.hyperion.rs2.net.Packet;
 import java.util.logging.Logger;
 
 /**
- * Created with IntelliJ IDEA.
- * User: black flag
- * Date: 1/16/13
- * Time: 5:51 PM
+ * Created with IntelliJ IDEA. User: black flag Date: 1/16/13 Time: 5:51 PM
  */
 public class OperateItemPacketHandler implements PacketHandler {
 
@@ -20,7 +17,6 @@ public class OperateItemPacketHandler implements PacketHandler {
      * The logger instance.
      */
     private static final Logger logger = Logger.getLogger(OperateItemPacketHandler.class.getName());
-
     /**
      * Operate Item
      */

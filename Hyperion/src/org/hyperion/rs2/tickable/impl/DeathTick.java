@@ -1,6 +1,6 @@
 package org.hyperion.rs2.tickable.impl;
 
-import org.hyperion.rs2.tickable.event.Event;
+import org.hyperion.rs2.event.Event;
 import org.hyperion.rs2.model.*;
 import org.hyperion.rs2.tickable.Tickable;
 

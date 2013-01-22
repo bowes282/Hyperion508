@@ -1,26 +1,72 @@
 package org.hyperion.rs2.event;
 
-import java.util.Map;
-
 /**
- * @date 1/20/13
- * @time 8:27 PM
+ * Represents a new event.
+ *
+ * @author Graham
  */
-public class Event {
+public abstract class Event {
 
-    private String eventName;
-    private Map<String, Object> args;
+    /**
+     * The delay, in milliseconds.
+     */
+    private long delay;
+    /**
+     * The running flag.
+     */
+    private boolean running = true;
 
-    public Event(String eventName, Map<String, Object> args) {
-        this.eventName = eventName;
-        this.args = args;
+    /**
+     * Creates an event with the specified delay.
+     *
+     * @param delay The delay.
+     */
+    public Event(long delay) {
+        this.delay = delay;
     }
 
-    public String getEventName() {
-        return eventName;
+    /**
+     * Gets the event delay.
+     *
+     * @return The delay, in milliseconds.
+     */
+    public long getDelay() {
+        return delay;
     }
 
-    public Map<String, Object> getArgs() {
-        return args;
+    /**
+     * Sets the event delay.
+     *
+     * @param delay The delay to set.
+     * @throws IllegalArgumentException if the delay is negative.
+     */
+    public void setDelay(long delay) {
+        if (delay < 0) {
+            throw new IllegalArgumentException("Delay must be positive.");
+        }
+        this.delay = delay;
     }
+
+    /**
+     * Checks if the event is running.
+     *
+     * @return <code>true</code> if the event is still running,
+     * <code>false</code> if not.
+     */
+    public boolean isRunning() {
+        return running;
+    }
+
+    /**
+     * Stops the event from running in the future.
+     */
+    public void stop() {
+        running = false;
+    }
+
+    /**
+     * The execute method is called when the event is run. The general contract
+     * of the execute method is that it may take any action whatsoever.
+     */
+    public abstract void execute();
 }

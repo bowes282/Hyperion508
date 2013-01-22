@@ -31,7 +31,6 @@ public final class PacketManager {
     public static PacketManager getPacketManager() {
         return INSTANCE;
     }
-
     /**
      * The packet handler array.
      */
@@ -41,9 +40,9 @@ public final class PacketManager {
      * Creates the packet manager.
      */
     public PacketManager() {
-           /*
+        /*
          * Set default handlers.
-		 */
+         */
         final PacketHandler defaultHandler = new DefaultPacketHandler();
         for (int i = 0; i < packetHandlers.length; i++) {
             if (packetHandlers[i] == null) {
@@ -55,7 +54,7 @@ public final class PacketManager {
     /**
      * Binds an opcode to a handler.
      *
-     * @param id      The opcode.
+     * @param id The opcode.
      * @param handler The handler.
      */
     public void bind(int id, PacketHandler handler) {
@@ -66,12 +65,12 @@ public final class PacketManager {
      * Handles a packet.
      *
      * @param session The session.
-     * @param packet  The packet.
+     * @param packet The packet.
      */
     public void handle(IoSession session, Packet packet) {
         final Player player = (Player) session.getAttribute("player");
         try {
-            World.getWorld().getGameEvents().sendEvent(null, player, packetHandlers[packet.getOpcode()].handle(player, packet));
+            World.getWorld().getScriptEvents().send(null, player, packetHandlers[packet.getOpcode()].handle(player, packet));
         } catch (final Exception ex) {
             logger.log(Level.SEVERE, "Exception handling packet.", ex);
             session.close(false);

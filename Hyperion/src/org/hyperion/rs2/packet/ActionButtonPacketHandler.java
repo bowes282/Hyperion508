@@ -33,13 +33,13 @@ public class ActionButtonPacketHandler implements PacketHandler {
         switch (interfaceId) {
 
             /*
-            * Setting tab.
-            */
+             * Setting tab.
+             */
             case 261:
                 switch (button) {
-                 /*
-                  * Running toggle.
-                  */
+                    /*
+                     * Running toggle.
+                     */
                     case 3:
                         if (!player.getWalkingQueue().isRunningToggled()) {
                             player.getWalkingQueue().setRunningToggled(true);
@@ -53,8 +53,8 @@ public class ActionButtonPacketHandler implements PacketHandler {
                 break;
 
             /*
-            * The emotion tab.
-            */
+             * The emotion tab.
+             */
             case 464:
                 /*
                  * Emote tab.
@@ -65,13 +65,13 @@ public class ActionButtonPacketHandler implements PacketHandler {
                 break;
 
             /*
-            * Map buttons.
-            */
+             * Map buttons.
+             */
             case 750:
                 switch (button) {
                     /*
-                  * Running toggle.
-                  */
+                     * Running toggle.
+                     */
                     case 1:
                         if (!player.getWalkingQueue().isRunningToggled()) {
                             player.getWalkingQueue().setRunningToggled(true);
@@ -100,13 +100,13 @@ public class ActionButtonPacketHandler implements PacketHandler {
                             break;
                         case 166:
                             /*
-                            * Max deposit
-                            */
+                             * Max deposit
+                             */
                             break;
                         case 223:
                             /*
-                            * Examine.
-                            */
+                             * Examine.
+                             */
                             break;
                     }
                 }
@@ -128,14 +128,14 @@ public class ActionButtonPacketHandler implements PacketHandler {
                                 Bank.withdraw(player, childButton, 10);
                                 break;
                             case 166:
-                            /*
-                             * Max deposit
-                             */
+                                /*
+                                 * Max deposit
+                                 */
                                 break;
                             case 223:
-                            /*
-                             * Examine.
-                             */
+                                /*
+                                 * Examine.
+                                 */
                                 break;
                         }
                         break;

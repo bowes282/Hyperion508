@@ -6,6 +6,7 @@ import org.apache.mina.filter.codec.ProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolEncoder;
 
 public class RS2CodecFactory implements ProtocolCodecFactory {
+
     /**
      * The login decoder.
      */

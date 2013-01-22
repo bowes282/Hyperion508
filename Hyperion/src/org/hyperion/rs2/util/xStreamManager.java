@@ -23,5 +23,4 @@ public class xStreamManager {
     public static Object load(InputStream in) {
         return xstream.fromXML(in);
     }
-
 }

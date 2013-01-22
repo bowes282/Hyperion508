@@ -21,7 +21,6 @@ public final class PacketBuilder {
             BIT_MASK_OUT[i] = (1 << i) - 1;
         }
     }
-
     /**
      * The opcode.
      */
@@ -59,7 +58,7 @@ public final class PacketBuilder {
      * Creates a packet builder with the specified opcode and type.
      *
      * @param opcode The opcode.
-     * @param type   The type.
+     * @param type The type.
      */
     public PacketBuilder(int opcode, Type type) {
         this.opcode = opcode;
@@ -212,7 +211,7 @@ public final class PacketBuilder {
      * Writes some bits.
      *
      * @param numBits The number of bits to write.
-     * @param value   The value.
+     * @param value The value.
      * @return The PacketBuilder instance, for chaining.
      */
     public PacketBuilder putBits(int numBits, int value) {
@@ -248,7 +247,8 @@ public final class PacketBuilder {
     }
 
     /**
-     * Puts an <code>IoBuffer</code>.
+     * Puts an
+     * <code>IoBuffer</code>.
      *
      * @param buf The buffer.
      * @return The PacketBuilder instance, for chaining.
@@ -326,7 +326,7 @@ public final class PacketBuilder {
     /**
      * Puts a sequence of bytes in the buffer.
      *
-     * @param data   The bytes.
+     * @param data The bytes.
      * @param offset The offset.
      * @param length The length.
      * @return The PacketBuilder instance, for chaining.
@@ -396,13 +396,15 @@ public final class PacketBuilder {
     }
 
     /**
-     * Adds the contents of <code>byte</code> array <code>data</code>,
-     * starting at index <code>offset</code>. The size of this packet will
-     * grow by <code>len</code> bytes.
+     * Adds the contents of
+     * <code>byte</code> array
+     * <code>data</code>, starting at index
+     * <code>offset</code>. The size of this packet will grow by
+     * <code>len</code> bytes.
      *
-     * @param data   The bytes to add to this packet
+     * @param data The bytes to add to this packet
      * @param offset The index of the first byte to append
-     * @param len    The number of bytes to append
+     * @param len The number of bytes to append
      * @return A reference to this object
      */
     public PacketBuilder putBytes(IoBuffer data, int offset, int len) {
@@ -413,13 +415,15 @@ public final class PacketBuilder {
     }
 
     /**
-     * Adds the contents of <code>byte</code> array <code>data</code>,
-     * starting at index <code>offset</code>. The size of this packet will
-     * grow by <code>len</code> bytes.
+     * Adds the contents of
+     * <code>byte</code> array
+     * <code>data</code>, starting at index
+     * <code>offset</code>. The size of this packet will grow by
+     * <code>len</code> bytes.
      *
-     * @param data   The bytes to add to this packet
+     * @param data The bytes to add to this packet
      * @param offset The index of the first byte to append
-     * @param len    The number of bytes to append
+     * @param len The number of bytes to append
      * @return A reference to this object
      */
     public PacketBuilder putBytes(byte[] data, int offset, int len) {
@@ -429,11 +433,10 @@ public final class PacketBuilder {
         return this;
     }
 
-
     /**
      * Puts a series of reversed bytes in the buffer.
      *
-     * @param is     The source byte array.
+     * @param is The source byte array.
      * @param offset The offset.
      * @param length The length.
      * @return The PacketBuilder instance, for chaining.
@@ -448,7 +451,7 @@ public final class PacketBuilder {
     /**
      * Puts a series of reversed type-A bytes in the buffer.
      *
-     * @param is     The source byte array.
+     * @param is The source byte array.
      * @param offset The offset.
      * @param length The length.
      * @return The PacketBuilder instance, for chaining.

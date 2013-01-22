@@ -17,6 +17,7 @@ import java.security.SecureRandom;
 import java.util.logging.Logger;
 
 public class RS2LoginDecoder extends CumulativeProtocolDecoder {
+
     /**
      * Logger instance.
      */
@@ -68,19 +69,19 @@ public class RS2LoginDecoder extends CumulativeProtocolDecoder {
 
     @Override
     protected boolean doDecode(IoSession session, IoBuffer in,
-                               ProtocolDecoderOutput out) throws Exception {
+            ProtocolDecoderOutput out) throws Exception {
         final int state = (Integer) session.getAttribute("state", STATE_OPCODE);
         switch (state) {
 
             case STATE_OPCODE:
                 if (in.remaining() >= 1) {                /*
-                 * Here we read the first opcode which indicates the type of
-				 * connection.
-				 * 
-				 * 14 = game 15 = update 131: world list
-				 * 
-				 * Updating is done by sending keys in many 525 servers
-				 */
+                     * Here we read the first opcode which indicates the type of
+                     * connection.
+                     * 
+                     * 14 = game 15 = update 131: world list
+                     * 
+                     * Updating is done by sending keys in many 525 servers
+                     */
                     final int opcode = in.get() & 0xFF;
                     switch (opcode) {
                         case OPCODE_WORLD_LIST:
@@ -98,9 +99,9 @@ public class RS2LoginDecoder extends CumulativeProtocolDecoder {
                 in.rewind();
                 break;
 
-		/*
-         * Checks the client version for updating
-		 */
+            /*
+             * Checks the client version for updating
+             */
             case CHECK_UPDATE_VERSION:
                 if (in.remaining() >= 4) {
                     final int version = in.getInt();
@@ -117,9 +118,9 @@ public class RS2LoginDecoder extends CumulativeProtocolDecoder {
                 }
                 in.rewind();
                 break;
-        /*
-         * WorldList writing
-		 */
+            /*
+             * WorldList writing
+             */
             case STATE_WORLD_LIST:
                 if (in.remaining() >= 4) {
                     final int loginOpcode = in.getInt();
@@ -132,9 +133,9 @@ public class RS2LoginDecoder extends CumulativeProtocolDecoder {
                 }
                 in.rewind();
                 break;
-		/*
-		 * Sends the update keys (as i dont have an cache updater implemented
-		 */
+            /*
+             * Sends the update keys (as i dont have an cache updater implemented
+             */
             case STATE_UPDATE:
                 if (4 <= in.remaining()) {
                     in.skip(4);
@@ -150,23 +151,23 @@ public class RS2LoginDecoder extends CumulativeProtocolDecoder {
 
             case STATE_LOGIN:
                 if (in.remaining() >= 1) {
-				/*
-				 * The name hash is a simple hash of the name which is suspected
-				 * to be used to select the appropriate login server.
-				 */
+                    /*
+                     * The name hash is a simple hash of the name which is suspected
+                     * to be used to select the appropriate login server.
+                     */
                     @SuppressWarnings("unused")
                     final int nameHash = in.get() & 0xFF;
 
-				/*
-				 * We generated the server session key using a SecureRandom
-				 * class for security.
-				 */
+                    /*
+                     * We generated the server session key using a SecureRandom
+                     * class for security.
+                     */
                     final long serverKey = RANDOM.nextLong();
 
-				/*
-				 * The initial response is just 0s which the client is set to
-				 * ignore (probably some sort of modification).
-				 */
+                    /*
+                     * The initial response is just 0s which the client is set to
+                     * ignore (probably some sort of modification).
+                     */
                     session.write(new PacketBuilder().put((byte) 0).putLong(serverKey).toPacket());
                     session.setAttribute("state", STATE_PRECRYPTED);
                     session.setAttribute("serverKey", serverKey);
@@ -174,16 +175,16 @@ public class RS2LoginDecoder extends CumulativeProtocolDecoder {
                 }
                 in.rewind();
                 break;
-		/*
-		 * Checks if the login opcodes are correct
-		 */
+            /*
+             * Checks if the login opcodes are correct
+             */
             case STATE_PRECRYPTED:
                 if (3 <= in.remaining()) {
-				/*
-				 * We read the type of login.
-				 * 
-				 * 16 = normal 18 = reconnection
-				 */
+                    /*
+                     * We read the type of login.
+                     * 
+                     * 16 = normal 18 = reconnection
+                     */
                     final int loginOpcode = in.get() & 0xff;
                     if (loginOpcode != 16 && loginOpcode != 18) {
                         logger.info("Invalid login opcode : " + loginOpcode);
@@ -191,9 +192,9 @@ public class RS2LoginDecoder extends CumulativeProtocolDecoder {
                         in.rewind();
                         return false;
                     }
-				/*
-				 * We read the size of the login packet.
-				 */
+                    /*
+                     * We read the size of the login packet.
+                     */
                     final int loginSize = in.getUnsignedShort();
                     session.setAttribute("state", STATE_CRYPTED);
                     session.setAttribute("size", loginSize);
@@ -202,16 +203,16 @@ public class RS2LoginDecoder extends CumulativeProtocolDecoder {
                 in.rewind();
                 break;
 
-		/*
-		 * Main login information here
-		 */
+            /*
+             * Main login information here
+             */
             case STATE_CRYPTED:
                 final int size = (Integer) session.getAttribute("size");
                 if (in.remaining() >= size) {
 
-				/*
-				 * Reads the client version as an <code>in.getInt()</code>
-				 */
+                    /*
+                     * Reads the client version as an <code>in.getInt()</code>
+                     */
                     final int version = in.getInt();
                     if (version != RS2Server.VERSION) {
                         logger.info("Incorrect version : " + version);
@@ -220,13 +221,13 @@ public class RS2LoginDecoder extends CumulativeProtocolDecoder {
                         return false;
                     }
 
-				/*
-				 * checks if the client is on low memory Most likely to tell the
-				 * server not to play sounds and such
-				 */
+                    /*
+                     * checks if the client is on low memory Most likely to tell the
+                     * server not to play sounds and such
+                     */
                     @SuppressWarnings("unused")
                     final boolean lowMemory = (in.get() & 0xFF) == 1 ? true : false;
-                /*
+                    /*
                      * checks if the client is HD
                      */
                     final boolean isHD = false;//(in.get() & 0xff) == 1 ? true : false;
@@ -242,7 +243,7 @@ public class RS2LoginDecoder extends CumulativeProtocolDecoder {
                     }
                     in.get();
 
-                /*
+                    /*
                      * We now read the encrypted block opcode (although in most 317
                      * clients and this server the RSA is disabled) and check it is
                      * equal to 10.
@@ -255,14 +256,14 @@ public class RS2LoginDecoder extends CumulativeProtocolDecoder {
                         return false;
                     }
 
-				/*
-				 * We read the client's session key.
-				 */
+                    /*
+                     * We read the client's session key.
+                     */
                     final long clientKey = in.getLong();
 
-				/*
-				 * And verify it has the correct server session key.
-				 */
+                    /*
+                     * And verify it has the correct server session key.
+                     */
                     final long serverKey = (Long) session.getAttribute("serverKey");
                     final long reportedServerKey = in.getLong();
                     if (reportedServerKey != serverKey) {
@@ -275,12 +276,12 @@ public class RS2LoginDecoder extends CumulativeProtocolDecoder {
 
                     final String name = NameUtils.longToName(in.getLong());
                     final String pass = IoBufferUtils.getRS2String(in);
-                    logger.info("Login request : username=" + name + " password="+ pass);
+                    logger.info("Login request : username=" + name + " password=" + pass);
 
-				/*
-				 * And setup the ISAAC cipher which is used to encrypt and
-				 * decrypt opcodes.
-				 */
+                    /*
+                     * And setup the ISAAC cipher which is used to encrypt and
+                     * decrypt opcodes.
+                     */
                     final int[] sessionKey = new int[4];
                     sessionKey[0] = (int) (clientKey >> 32);
                     sessionKey[1] = (int) clientKey;
@@ -292,11 +293,11 @@ public class RS2LoginDecoder extends CumulativeProtocolDecoder {
                     session.removeAttribute("size");
                     session.removeAttribute("encryptSize");
 
-				/*
-				 * Now, the login has completed, and we do the appropriate
-				 * things to fire off the chain of events which will load and
-				 * check the saved games etc.
-				 */
+                    /*
+                     * Now, the login has completed, and we do the appropriate
+                     * things to fire off the chain of events which will load and
+                     * check the saved games etc.
+                     */
                     session.getFilterChain().remove("protocol");
                     session.getFilterChain().addFirst("protocol", new ProtocolCodecFilter(RS2CodecFactory.GAME));
 

@@ -20,7 +20,7 @@ public final class IoBufferUtils {
      * Writes a smart
      *
      * @param buffer The ChannelBuffer
-     * @param value  The value being wrote
+     * @param value The value being wrote
      */
     public static void putSmart(IoBuffer buffer, int value) {
         if ((value ^ 0xffffffff) > -129) {
@@ -48,7 +48,7 @@ public final class IoBufferUtils {
     /**
      * Writes a RuneScape string to a buffer.
      *
-     * @param buf    The buffer.
+     * @param buf The buffer.
      * @param string The string.
      */
     public static void putRS2String(IoBuffer buf, String string) {

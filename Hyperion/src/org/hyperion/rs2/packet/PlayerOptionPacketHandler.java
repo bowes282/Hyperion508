@@ -15,19 +15,19 @@ public class PlayerOptionPacketHandler implements PacketHandler {
     public PacketListener handle(Player player, Packet packet) {
         switch (packet.getOpcode()) {
             case 160:
-            /*
-             * Option 1.
-			 */
+                /*
+                 * Option 1.
+                 */
                 option1(player, packet);
                 break;
             case 37:            /*
-             * Option 2.
-			 */
+                 * Option 2.
+                 */
                 option2(player, packet);
                 break;
             case 227:            /*
-             * Option 3.
-			 */
+                 * Option 3.
+                 */
                 option3(player, packet);
                 break;
         }
@@ -89,7 +89,6 @@ public class PlayerOptionPacketHandler implements PacketHandler {
         final Player target = (Player) World.getWorld().getPlayers().get(id);
         player.getActionQueue().cancelQueuedActions();
         player.getActionQueue().addAction(new Action(player, 0) {
-
             @Override
             public QueuePolicy getQueuePolicy() {
                 return QueuePolicy.NEVER;
@@ -104,7 +103,6 @@ public class PlayerOptionPacketHandler implements PacketHandler {
             public void execute() {
                 this.setDelay(600);
             }
-
         });
     }
 }

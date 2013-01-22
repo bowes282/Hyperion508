@@ -12,7 +12,7 @@ public class CooldownTick extends Tickable {
     /**
      * Creates a cooldown event for a single CooldownFlag.
      *
-     * @param entity   The entity for whom we are expiring a cooldown.
+     * @param entity The entity for whom we are expiring a cooldown.
      * @param duration The length of the cooldown.
      */
     public CooldownTick(Entity entity, CooldownFlags cooldown, int duration) {

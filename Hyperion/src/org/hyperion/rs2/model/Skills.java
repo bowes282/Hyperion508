@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Skills {
+
     /**
      * The player.
      */
@@ -23,10 +24,10 @@ public class Skills {
      * The skill names.
      */
     public static final String[] SKILL_NAME = {"Attack", "Defence",
-            "Strength", "Hitpoints", "Range", "Prayer", "Magic", "Cooking",
-            "Woodcutting", "Fletching", "Fishing", "Firemaking", "Crafting",
-            "Smithing", "Mining", "Herblore", "Agility", "Thieving", "Slayer",
-            "Farming", "Runecrafting", "Construction", "Hunter", "Summoning",};
+        "Strength", "Hitpoints", "Range", "Prayer", "Magic", "Cooking",
+        "Woodcutting", "Fletching", "Fishing", "Firemaking", "Crafting",
+        "Smithing", "Mining", "Herblore", "Agility", "Thieving", "Slayer",
+        "Farming", "Runecrafting", "Construction", "Hunter", "Summoning",};
     /**
      * Constants for the skill numbers.
      */
@@ -114,7 +115,7 @@ public class Skills {
      *
      * @param skill The skill id.
      * @param level The level.
-     * @param exp   The experience.
+     * @param exp The experience.
      */
     public void setSkill(int skill, int level, double exp) {
         levels[skill] = level;
@@ -137,7 +138,7 @@ public class Skills {
      * Sets experience.
      *
      * @param skill The skill id.
-     * @param exp   The experience.
+     * @param exp The experience.
      */
     public void setExperience(int skill, double exp) {
         final int oldLvl = getLevelForExperience(skill);
@@ -172,7 +173,7 @@ public class Skills {
     /**
      * Detracts a given level a given amount.
      *
-     * @param skill  The level to detract.
+     * @param skill The level to detract.
      * @param amount The amount to detract from the level.
      */
     public void detractLevel(int skill, int amount) {
@@ -279,7 +280,7 @@ public class Skills {
      * Adds experience.
      *
      * @param skill The skill.
-     * @param exp   The experience to add.
+     * @param exp The experience to add.
      */
     public void addExperience(int skill, double exp) {
         final int oldLevel = levels[skill];

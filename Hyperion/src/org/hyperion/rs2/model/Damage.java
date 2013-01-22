@@ -35,7 +35,8 @@ public class Damage {
     }
 
     /**
-     * Nested class <code>Hit</code>, handling a single hit.
+     * Nested class
+     * <code>Hit</code>, handling a single hit.
      *
      * @author Graham
      */
@@ -65,7 +66,6 @@ public class Damage {
         hit1 = null;
         hit2 = null;
     }
-
     /**
      * Represents a hit.
      */

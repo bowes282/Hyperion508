@@ -12,6 +12,7 @@ import java.util.logging.Logger;
  * @author Graham
  */
 public class MapDataLoader {
+
     /**
      * Logging class.
      */
@@ -27,7 +28,8 @@ public class MapDataLoader {
     /**
      * Loads mapdata into the specified map.
      * <p/>
-     * The map should have a key of <code>Integer</code> and value of
+     * The map should have a key of
+     * <code>Integer</code> and value of
      * <code>int[]</code>.
      *
      * @param mapData The map.
@@ -51,5 +53,4 @@ public class MapDataLoader {
         }
         logger.info("Loaded " + useableMapdata + " useable mapdata.");
     }
-
 }

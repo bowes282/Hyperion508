@@ -26,7 +26,6 @@ public class ItemOptionPacketHandler implements PacketHandler {
      * The logger instance.
      */
     private static final Logger logger = Logger.getLogger(ItemOptionPacketHandler.class.getName());
-
     /**
      * Option 1
      */
@@ -35,17 +34,14 @@ public class ItemOptionPacketHandler implements PacketHandler {
      * Option 2
      */
     private static final int ITEM_OPTION_2 = 152;
-
     /**
      * Select Item
      */
     private static final int ITEM_SELECT = 220;
-
     /**
      * Switching Items
      */
     private static final int SWITCH_ITEMS = 167;
-
     /**
      * Switching Items 2
      */
@@ -56,7 +52,7 @@ public class ItemOptionPacketHandler implements PacketHandler {
         switch (packet.getOpcode()) {
             /*
              * Item option 1.
-			 */
+             */
             case ITEM_OPTION_1:
                 handleItemOption1(player, packet);
                 break;
@@ -84,7 +80,7 @@ public class ItemOptionPacketHandler implements PacketHandler {
 
             /*
              * Transfer items between two interfaces.
-			 */
+             */
             case SWITCH_ITEMS_2:
                 switchItems2(player, packet);
                 break;
@@ -293,4 +289,3 @@ public class ItemOptionPacketHandler implements PacketHandler {
         }
     }
 }
-

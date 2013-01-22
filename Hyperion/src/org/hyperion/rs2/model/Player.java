@@ -26,6 +26,7 @@ import java.util.Queue;
  * @author Graham
  */
 public class Player extends Entity implements Persistable {
+
     /**
      * Represents the rights of a player.
      *
@@ -85,11 +86,12 @@ public class Player extends Entity implements Persistable {
         }
     }
 
-	/*
+    /*
      * Attributes specific to our session.
-	 */
+     */
     /**
-     * The <code>IoSession</code>.
+     * The
+     * <code>IoSession</code>.
      */
     private final IoSession session;
     /**
@@ -126,7 +128,8 @@ public class Player extends Entity implements Persistable {
      */
     private final RequestManager requestManager = new RequestManager(this);    /*
      * Core login details.
-	 */
+     */
+
     /**
      * The name.
      */
@@ -152,7 +155,8 @@ public class Player extends Entity implements Persistable {
      */
     private final boolean isHD;    /*
      * Attributes.
-	 */
+     */
+
     /**
      * The player's appearance information.
      */
@@ -182,26 +186,24 @@ public class Player extends Entity implements Persistable {
      */
     private final Bonuses bonuses = new Bonuses(this);    /*
      * Cached details.
-	 */
+     */
+
     /**
      * The cached update block.
      */
     private Packet cachedUpdateBlock;
 
-	/*
+    /*
      * Player information.
-	 */
-
+     */
     /**
      * The total amount of player energy
      */
     private double runEnergy = 100;
-
     /**
      * The total amount of special attack.
      */
     private int specialAmount = 1000;
-
     /**
      * The debug mode
      */
@@ -274,8 +276,9 @@ public class Player extends Entity implements Persistable {
     }
 
     /**
-     * Writes a packet to the <code>IoSession</code>. If the player is not yet
-     * active, the packets are queued.
+     * Writes a packet to the
+     * <code>IoSession</code>. If the player is not yet active, the packets are
+     * queued.
      *
      * @param packet The packet.
      */
@@ -436,7 +439,8 @@ public class Player extends Entity implements Persistable {
     }
 
     /**
-     * Gets the <code>IoSession</code>.
+     * Gets the
+     * <code>IoSession</code>.
      *
      * @return The player's <code>IoSession</code>.
      */
@@ -734,6 +738,5 @@ public class Player extends Entity implements Persistable {
 
     @Override
     public void inflictDamage(int damage, HitType type) {
-
     }
 }

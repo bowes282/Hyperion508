@@ -38,145 +38,145 @@ public class PlayerUpdateTask implements Task {
     public void execute(GameEngine context) {
         /*
          * If the map region changed send the new one. We do this immediately as
-		 * the client can begin loading it before the actual packet is received.
-		 */
+         * the client can begin loading it before the actual packet is received.
+         */
         if (player.isMapRegionChanging()) {
             player.getActionSender().sendMapRegion();
         }
 
-		/*
+        /*
          * The update block packet holds update blocks and is send after the
-		 * main packet.
-		 */
+         * main packet.
+         */
         final PacketBuilder updateBlock = new PacketBuilder();
 
-		/*
+        /*
          * The main packet is written in bits instead of bytes and holds
-		 * information about the local list, players to add and remove, movement
-		 * and which updates are required.
-		 */
+         * information about the local list, players to add and remove, movement
+         * and which updates are required.
+         */
         final PacketBuilder updatePacket = new PacketBuilder(216, Packet.Type.VARIABLE_SHORT);
         updatePacket.startBitAccess();
 
-		/*
+        /*
          * Updates this player.
-		 */
+         */
         updateThisPlayerMovement(updatePacket);
         updatePlayer(updateBlock, player, false);
 
-		/*
+        /*
          * Write the current size of the player list.
-		 */
+         */
         updatePacket.putBits(8, player.getLocalPlayers().size());
 
-		/*
+        /*
          * Iterate through the local player list.
-		 */
-        for (final Iterator<Player> it$ = player.getLocalPlayers().iterator(); it$.hasNext(); ) {
-			/*
-			 * Get the next player.
-			 */
+         */
+        for (final Iterator<Player> it$ = player.getLocalPlayers().iterator(); it$.hasNext();) {
+            /*
+             * Get the next player.
+             */
             final Player otherPlayer = it$.next();
 
-			/*
-			 * If the player should still be in our list.
-			 */
+            /*
+             * If the player should still be in our list.
+             */
             if (World.getWorld().getPlayers().contains(otherPlayer)
                     && !otherPlayer.isTeleporting()
                     && otherPlayer.getLocation().isWithinDistance(
                     player.getLocation(), 16)) {
 
-				/*
-				 * Update the movement.
-				 */
+                /*
+                 * Update the movement.
+                 */
                 updatePlayerMovement(updatePacket, otherPlayer);
 
-				/*
-				 * Check if an update is required, and if so, send the update.
-				 */
+                /*
+                 * Check if an update is required, and if so, send the update.
+                 */
                 if (otherPlayer.getUpdateFlags().isUpdateRequired()) {
                     updatePlayer(updateBlock, otherPlayer, false);
                 }
             } else {
-				/*
-				 * Otherwise, remove the player from the list.
-				 */
+                /*
+                 * Otherwise, remove the player from the list.
+                 */
                 it$.remove();
 
-				/*
-				 * Tell the client to remove the player from the list.
-				 */
+                /*
+                 * Tell the client to remove the player from the list.
+                 */
                 updatePacket.putBits(1, 1);
                 updatePacket.putBits(2, 3);
             }
         }
-		/*
-		 * Loop through every player.
-		 */
+        /*
+         * Loop through every player.
+         */
         for (final Player otherPlayer : World.getWorld().getRegionManager().getLocalPlayers(player)) {
-			/*
-			 * Check if there is room left in the local list.
-			 */
+            /*
+             * Check if there is room left in the local list.
+             */
             if (player.getLocalPlayers().size() >= 255) {
-				/*
-				 * There is no more room left in the local list. We cannot add
-				 * more players, so we just ignore the extra ones. They will be
-				 * added as other players get removed.
-				 */
+                /*
+                 * There is no more room left in the local list. We cannot add
+                 * more players, so we just ignore the extra ones. They will be
+                 * added as other players get removed.
+                 */
                 break;
             }
 
-			/*
-			 * If they should not be added ignore them.
-			 */
+            /*
+             * If they should not be added ignore them.
+             */
             if (otherPlayer == player || player.getLocalPlayers().contains(otherPlayer)) {
                 continue;
             }
 
-			/*
-			 * Add the player to the local list if it is within distance.
-			 */
+            /*
+             * Add the player to the local list if it is within distance.
+             */
             player.getLocalPlayers().add(otherPlayer);
 
-			/*
-			 * Add the player in the packet.
-			 */
+            /*
+             * Add the player in the packet.
+             */
             addNewPlayer(updatePacket, otherPlayer);
-			/*
-			 * Update the player, forcing the appearance flag.
-			 */
+            /*
+             * Update the player, forcing the appearance flag.
+             */
             updatePlayer(updateBlock, otherPlayer, true);
         }
 
-		/*
-		 * Check if the update block is not empty.
-		 */
+        /*
+         * Check if the update block is not empty.
+         */
         if (!updateBlock.isEmpty()) {
-			/*
-			 * Write a magic id indicating an update block follows.
-			 */
+            /*
+             * Write a magic id indicating an update block follows.
+             */
             updatePacket.putBits(11, 2047);
             updatePacket.finishBitAccess();
-			/*
-			 * Add the update block at the end of this packet.
-			 */
+            /*
+             * Add the update block at the end of this packet.
+             */
             updatePacket.put(updateBlock.toPacket().getPayload());
         } else {
-			/*
-			 * Terminate the packet normally.
-			 */
+            /*
+             * Terminate the packet normally.
+             */
             updatePacket.finishBitAccess();
         }
-		/*
-		 * Write the packet.
-		 */
+        /*
+         * Write the packet.
+         */
         player.write(updatePacket.toPacket());
     }
 
     /**
      * Adds a new player.
      *
-     * @param packet      The packet.
+     * @param packet The packet.
      * @param otherPlayer The player.
      */
     public void addNewPlayer(PacketBuilder packet, Player otherPlayer) {
@@ -199,7 +199,7 @@ public class PlayerUpdateTask implements Task {
     /**
      * Updates a non-this player's movement.
      *
-     * @param packet      The packet.
+     * @param packet The packet.
      * @param otherPlayer The player.
      */
     public void updatePlayerMovement(PacketBuilder packet, Player otherPlayer) {
@@ -261,31 +261,30 @@ public class PlayerUpdateTask implements Task {
         }
     }
 
-
     /**
      * Updates a player.
      *
-     * @param packet          The packet.
-     * @param otherPlayer     The other player.
+     * @param packet The packet.
+     * @param otherPlayer The other player.
      * @param forceAppearance The force appearance flag.
      */
     public void updatePlayer(PacketBuilder packet, Player otherPlayer, boolean forceAppearance) {
         /*
-           * If no update is required and we don't have to force an appearance
-           * update, don't write anything.
-           */
+         * If no update is required and we don't have to force an appearance
+         * update, don't write anything.
+         */
         if (!otherPlayer.getUpdateFlags().isUpdateRequired() && !forceAppearance) {
             return;
         }
 
         /*
-           * We can used the cached update block!
-           */
+         * We can used the cached update block!
+         */
         synchronized (otherPlayer) {        /*
-            if (otherPlayer.hasCachedUpdateBlock() && otherPlayer != player && !forceAppearance) {
-                packet.put(otherPlayer.getCachedUpdateBlock().getPayload().flip());
-                return;
-            }*/
+             if (otherPlayer.hasCachedUpdateBlock() && otherPlayer != player && !forceAppearance) {
+             packet.put(otherPlayer.getCachedUpdateBlock().getPayload().flip());
+             return;
+             }*/
             /*
              * We have to construct and cache our own block.
              */
@@ -393,7 +392,7 @@ public class PlayerUpdateTask implements Task {
     /**
      * Appends an animation update.
      *
-     * @param block       The update block.
+     * @param block The update block.
      * @param otherPlayer The player.
      */
     private void appendAnimationUpdate(PacketBuilder block, Player otherPlayer) {
@@ -404,7 +403,7 @@ public class PlayerUpdateTask implements Task {
     /**
      * Appends a graphics update.
      *
-     * @param block       The update block.
+     * @param block The update block.
      * @param otherPlayer The player.
      */
     private void appendGraphicsUpdate(PacketBuilder block, Player otherPlayer) {
@@ -415,7 +414,7 @@ public class PlayerUpdateTask implements Task {
     /**
      * Appends a chat text update.
      *
-     * @param block       The packet.
+     * @param block The packet.
      * @param otherPlayer The player.
      */
     private void appendChatUpdate(PacketBuilder block, Player otherPlayer) {
@@ -432,7 +431,7 @@ public class PlayerUpdateTask implements Task {
     /**
      * Appends an appearance update.
      *
-     * @param packet      The packet.
+     * @param packet The packet.
      * @param otherPlayer The player.
      */
     private void appendPlayerAppearanceUpdate(PacketBuilder packet, Player otherPlayer) {
@@ -540,5 +539,4 @@ public class PlayerUpdateTask implements Task {
         packet.put((byte) (propsPacket.getLength() & 0xff));
         packet.putBytes(propsPacket.getPayload(), 0, propsPacket.getLength());
     }
-
 }

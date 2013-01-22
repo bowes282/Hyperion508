@@ -17,22 +17,18 @@ public class UsingItemPacketHandler implements PacketHandler {
      * The logger instance.
      */
     private static final Logger logger = Logger.getLogger(UsingItemPacketHandler.class.getName());
-
     /**
      * Item on Object
      */
     private static final int ITEM_ON_OBJECT = 224;
-
     /**
      * Item on Item
      */
     private static final int ITEM_ON_ITEM = 40;
-
     /**
      * Item on Player
      */
     private static final int ITEM_ON_PLAYER = 131;
-
     /**
      * Item on Npc
      */

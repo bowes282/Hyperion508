@@ -12,6 +12,7 @@ import java.util.concurrent.*;
  * @author Graham
  */
 public class GameEngine implements Runnable {
+
     /**
      * A queue of pending tasks.
      */
@@ -21,7 +22,8 @@ public class GameEngine implements Runnable {
      */
     private final ScheduledExecutorService logicService = Executors.newScheduledThreadPool(1);
     /**
-     * The task service, used by <code>ParallelTask</code>s.
+     * The task service, used by
+     * <code>ParallelTask</code>s.
      */
     private final BlockingExecutorService taskService = new BlockingExecutorService(Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()));
     /**
@@ -48,7 +50,8 @@ public class GameEngine implements Runnable {
     }
 
     /**
-     * Checks if this <code>GameEngine</code> is running.
+     * Checks if this
+     * <code>GameEngine</code> is running.
      *
      * @return <code>true</code> if so, <code>false</code> if not.
      */
@@ -57,7 +60,8 @@ public class GameEngine implements Runnable {
     }
 
     /**
-     * Starts the <code>GameEngine</code>'s thread.
+     * Starts the
+     * <code>GameEngine</code>'s thread.
      */
     public void start() {
         if (running) {
@@ -69,7 +73,8 @@ public class GameEngine implements Runnable {
     }
 
     /**
-     * Stops the <code>GameEngine</code>'s thread.
+     * Stops the
+     * <code>GameEngine</code>'s thread.
      */
     public void stop() {
         if (!running) {
@@ -86,7 +91,6 @@ public class GameEngine implements Runnable {
                 try {
                     final Task task = tasks.take();
                     submitLogic(new Runnable() {
-
                         @Override
                         public void run() {
                             task.execute(GameEngine.this);
@@ -107,14 +111,13 @@ public class GameEngine implements Runnable {
      * Schedules a task to run in the logic service.
      *
      * @param runnable The runnable.
-     * @param delay    The delay.
-     * @param unit     The time unit.
+     * @param delay The delay.
+     * @param unit The time unit.
      * @return The <code>ScheduledFuture</code> of the scheduled logic.
      */
     public ScheduledFuture<?> scheduleLogic(final Runnable runnable,
-                                            long delay, TimeUnit unit) {
+            long delay, TimeUnit unit) {
         return logicService.schedule(new Runnable() {
-
             @Override
             public void run() {
                 try {
@@ -133,7 +136,6 @@ public class GameEngine implements Runnable {
      */
     public void submitTask(final Runnable runnable) {
         taskService.submit(new Runnable() {
-
             @Override
             public void run() {
                 try {
@@ -152,7 +154,6 @@ public class GameEngine implements Runnable {
      */
     public void submitWork(final Runnable runnable) {
         workService.submit(new Runnable() {
-
             @Override
             public void run() {
                 try {
@@ -171,7 +172,6 @@ public class GameEngine implements Runnable {
      */
     public void submitLogic(final Runnable runnable) {
         logicService.submit(new Runnable() {
-
             @Override
             public void run() {
                 try {

@@ -47,7 +47,7 @@ public class InterfaceState {
      *
      * @param id The interface id.
      * @return <code>true</code> if the interface is open, <code>false</code> if
-     *         not.
+     * not.
      */
     public boolean isInterfaceOpen(int id) {
         return currentInterface == id;
@@ -91,11 +91,11 @@ public class InterfaceState {
      * Adds a listener to an interface that is closed when the inventory is
      * closed.
      *
-     * @param container         The container.
+     * @param container The container.
      * @param containerListener The listener.
      */
     public void addListener(Container container,
-                            ContainerListener containerListener) {
+            ContainerListener containerListener) {
         container.addListener(containerListener);
         containerListeners.add(containerListener);
     }
@@ -104,8 +104,8 @@ public class InterfaceState {
      * Called to open the enter amount interface.
      *
      * @param interfaceId The interface id.
-     * @param slot        The slot.
-     * @param id          The id.
+     * @param slot The slot.
+     * @param id The id.
      */
     public void openEnterAmountInterface(int interfaceId, int slot, int id) {
         enterAmountInterfaceId = interfaceId;
@@ -122,18 +122,17 @@ public class InterfaceState {
     public boolean isEnterAmountInterfaceOpen() {
         return enterAmountInterfaceId != -1;
     }
-
     /**
      * Called when the enter amount interface is closed.
      *
-     * @param amount
-     *            The amount that was entered.
+     * @param amount The amount that was entered.
      */    /*
      * public void closeEnterAmountInterface(int amount) { try { switch
-	 * (enterAmountInterfaceId) { case Bank.PLAYER_INVENTORY_INTERFACE:
-	 * Bank.deposit(player, enterAmountSlot, enterAmountId, amount); break; case
-	 * Bank.BANK_INVENTORY_INTERFACE: Bank.withdraw(player, enterAmountSlot,
-	 * enterAmountId, amount); break; } } finally { enterAmountInterfaceId = -1;
-	 * } }
-	 */
+     * (enterAmountInterfaceId) { case Bank.PLAYER_INVENTORY_INTERFACE:
+     * Bank.deposit(player, enterAmountSlot, enterAmountId, amount); break; case
+     * Bank.BANK_INVENTORY_INTERFACE: Bank.withdraw(player, enterAmountSlot,
+     * enterAmountId, amount); break; } } finally { enterAmountInterfaceId = -1;
+     * } }
+     */
+
 }

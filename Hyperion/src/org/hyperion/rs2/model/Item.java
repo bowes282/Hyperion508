@@ -1,6 +1,7 @@
 package org.hyperion.rs2.model;
 
 public class Item {
+
     /**
      * The id.
      */
@@ -22,7 +23,7 @@ public class Item {
     /**
      * Creates a stacked item.
      *
-     * @param id    The id.
+     * @param id The id.
      * @param count The number of items.
      * @throws IllegalArgumentException if count is negative.
      */

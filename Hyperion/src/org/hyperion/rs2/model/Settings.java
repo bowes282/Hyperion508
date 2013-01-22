@@ -1,6 +1,7 @@
 package org.hyperion.rs2.model;
 
 public class Settings {
+
     /**
      * Withdraw as notes flag.
      */

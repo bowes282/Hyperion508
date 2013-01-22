@@ -15,6 +15,7 @@ import org.hyperion.rs2.util.ChatUtils;
  * @author 'Mystic Flow
  */
 public final class ActionSender {
+
     /**
      * The player.
      */
@@ -63,21 +64,21 @@ public final class ActionSender {
         sendSidebar();
 
         /*
-           * Sends player's data.
-           */
+         * Sends player's data.
+         */
         sendSkillLevels();
         sendEnergy();
 
         /*
-           * Sends player options.
-           */
+         * Sends player options.
+         */
         sendInteractionOption("Attack", 1, true);
         sendInteractionOption("Trade with", 3, false);
         sendInteractionOption("Follow", 2, false);
 
         /*
-           * Adds the interface listeners.
-           */
+         * Adds the interface listeners.
+         */
         final InterfaceContainerListener inventoryListener = new InterfaceContainerListener(player, Inventory.INTERFACE, 0, 93);
         player.getInventory().addListener(inventoryListener);
         final InterfaceContainerListener equipmentListener = new InterfaceContainerListener(player, Equipment.INTERFACE, 28, 94);
@@ -85,7 +86,7 @@ public final class ActionSender {
         player.getEquipment().addListener(new EquipmentContainerListener(player));
         player.getEquipment().addListener(new WeaponContainerListener(player));
 
-        World.getWorld().getGameEvents().sendEvent("login", player, null);
+        World.getWorld().getScriptEvents().send("login", player, null);
         return this;
     }
 
@@ -160,7 +161,7 @@ public final class ActionSender {
     /**
      * Sends a tab.
      *
-     * @param tabId   The tab id.
+     * @param tabId The tab id.
      * @param childId The child id.
      * @return The action sender instance, for chaining.
      */
@@ -176,10 +177,10 @@ public final class ActionSender {
     /**
      * Sends a game interface.
      *
-     * @param showId      The show id.
-     * @param windowId    The window id.
+     * @param showId The show id.
+     * @param windowId The window id.
      * @param interfaceId The interface id.
-     * @param childId     The child id.
+     * @param childId The child id.
      * @return The action sender instance, for chaining.
      */
     public ActionSender sendGameInterface(int showId, int windowId, int interfaceId, int childId) {
@@ -241,7 +242,7 @@ public final class ActionSender {
     /**
      * Sends a config.
      *
-     * @param id    The id.
+     * @param id The id.
      * @param value The value.
      * @return The action sender instance, for chaining.
      */
@@ -273,7 +274,6 @@ public final class ActionSender {
         player.write(new PacketBuilder(161).putShort(id).putInt1(value).toPacket());
         return this;
     }
-
 
     /**
      * Sends the player's engery.
@@ -412,7 +412,7 @@ public final class ActionSender {
     /**
      * Sends a debug message.
      *
-     * @param opCode      The opcode
+     * @param opCode The opcode
      * @param description The description of the message
      * @return The action sender instance, for chaining.
      */
@@ -428,14 +428,13 @@ public final class ActionSender {
                 .sendDebugMessage("------------------------------------------------------------------------------------------");
     }
 
-
     /**
      * Sends right click options.
      *
-     * @param set   The set.
+     * @param set The set.
      * @param inter The interface.
-     * @param off   The off.
-     * @param len   The len.
+     * @param off The off.
+     * @param len The len.
      * @return The action sender instance, for chaining.
      */
     public ActionSender sendRightClickOptions(int set, int inter, int off, int len) {
@@ -498,12 +497,11 @@ public final class ActionSender {
         sendWelcomeScreen();
     }
 
-
     /**
      * Sends a packet to update a group of items.
      *
      * @param interfaceId The interface id.
-     * @param items       The items.
+     * @param items The items.
      * @return The action sender instance, for chaining.
      */
     public ActionSender sendUpdateItems(int interfaceId, int childId, int type, Item[] items) {
@@ -534,8 +532,8 @@ public final class ActionSender {
      * Sends a packet to update multiple (but not all) items.
      *
      * @param interfaceId The interface id.
-     * @param slots       The slots.
-     * @param items       The item array.
+     * @param slots The slots.
+     * @param items The item array.
      * @return The action sender instance, for chaining.
      */
     public ActionSender sendUpdateItems(int interfaceId, int childId, int type, int[] slots, Item[] items) {
@@ -567,12 +565,12 @@ public final class ActionSender {
      * Sends a model in an interface.
      *
      * @param interfaceid The interface id.
-     * @param itemid      The zoom.
-     * @param itemsize    The model id.
+     * @param itemid The zoom.
+     * @param itemsize The model id.
      * @return The action sender instance, for chaining.
      */
     public ActionSender sendInterfaceModel(int interfaceid, int child,
-                                           int itemsize, int itemid) {
+            int itemsize, int itemid) {
         final PacketBuilder bldr = new PacketBuilder(253);
         final int inter = (interfaceid << 16) + child;
         bldr.putInt(itemsize);
@@ -586,9 +584,9 @@ public final class ActionSender {
     /**
      * Replaces an ingame string with some server chosen value.
      *
-     * @param string      The string to write.
+     * @param string The string to write.
      * @param interfaceId The interfaceId to write the string on.
-     * @param childId     Where on the interface to write the string.
+     * @param childId Where on the interface to write the string.
      * @return The action sender instance, for chaining.
      */
     public ActionSender sendInterfaceString(String string, int interfaceId, int childId) {
@@ -607,8 +605,8 @@ public final class ActionSender {
      * Sends interface config.
      *
      * @param interfaceId The interface id.
-     * @param childId     The child id.
-     * @param active      Is the interface active?
+     * @param childId The child id.
+     * @param active Is the interface active?
      * @return The action sender instance, for chaining.
      */
     public ActionSender sendInterfaceConfig(int interfaceId, int childId, boolean active) {
@@ -632,18 +630,18 @@ public final class ActionSender {
     /**
      * Sends a friend to the friend list.
      *
-     * @param name  The name (encoded as a long).
+     * @param name The name (encoded as a long).
      * @param world The world id.
      */
     public ActionSender sendFriend(long name, int world) {
         final PacketBuilder packet = new PacketBuilder(2, Type.VARIABLE).putLong(name).putShort(world).put((byte) 1);
         /*if(world != 0) {
-            if(world == player.getWorld()) {
-                packet.putRS2String("Online");
-            } else {
-                packet.putRS2String("RuneScape " + world);
-            }
-        }*/
+         if(world == player.getWorld()) {
+         packet.putRS2String("Online");
+         } else {
+         packet.putRS2String("RuneScape " + world);
+         }
+         }*/
         packet.putRS2String("Online");
         player.getSession().write(packet.toPacket());
         return this;
@@ -673,7 +671,7 @@ public final class ActionSender {
      * Sends the player an option.
      *
      * @param slot The slot to place the option in the menu.
-     * @param top  Flag which indicates the item should be placed at the top.
+     * @param top Flag which indicates the item should be placed at the top.
      * @return The action sender instance, for chaining.
      */
     public ActionSender sendInteractionOption(String option, int slot, boolean top) {

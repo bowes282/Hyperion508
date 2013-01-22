@@ -11,10 +11,7 @@ import org.hyperion.rs2.net.Packet;
 import java.util.logging.Logger;
 
 /**
- * Created with IntelliJ IDEA.
- * User: black flag
- * Date: 1/15/13
- * Time: 9:19 PM
+ * Created with IntelliJ IDEA. User: black flag Date: 1/15/13 Time: 9:19 PM
  */
 public class NpcOptionPacketHandler implements PacketHandler {
 
@@ -34,19 +31,19 @@ public class NpcOptionPacketHandler implements PacketHandler {
                 break;
             /*
              * Option 2.
-			 */
+             */
             case 52:
                 option2(player, packet);
                 break;
             /*
              * Option 3.
-			 */
+             */
             case 199:
                 option3(player, packet);
                 break;
             /*
              * Attack.
-			 */
+             */
             case 123:
                 attack(player, packet);
                 break;

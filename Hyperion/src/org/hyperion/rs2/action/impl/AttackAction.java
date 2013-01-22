@@ -23,7 +23,7 @@ public class AttackAction extends Action {
      *
      * @param player The attacker.
      * @param victim The attacked.
-     * @param type   The type of attack.
+     * @param type The type of attack.
      */
     public AttackAction(Player player, Entity victim) {
         super(player, 300);

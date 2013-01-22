@@ -14,7 +14,8 @@ public class ActionQueue {
      */
     public static final int MAXIMUM_SIZE = Inventory.SIZE;
     /**
-     * A queue of <code>Action</code> objects.
+     * A queue of
+     * <code>Action</code> objects.
      */
     private final Queue<Action> queuedActions = new LinkedList<Action>();
     /**
@@ -37,7 +38,8 @@ public class ActionQueue {
     }
 
     /**
-     * Adds an <code>Action</code> to the queue.
+     * Adds an
+     * <code>Action</code> to the queue.
      *
      * @param action The action.
      */
@@ -61,7 +63,8 @@ public class ActionQueue {
     }
 
     /**
-     * Purges actions in the queue with a <code>WalkablePolicy</code> of
+     * Purges actions in the queue with a
+     * <code>WalkablePolicy</code> of
      * <code>NON_WALKABLE</code>.
      */
     public void clearNonWalkableActions() {

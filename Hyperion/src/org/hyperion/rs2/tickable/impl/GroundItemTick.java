@@ -14,7 +14,6 @@ public final class GroundItemTick extends Tickable {
      * The delay between each stage.
      */
     private static final int STAGE_DELAY = 50;
-
     /**
      * The GroundItem to run the event for.
      */
@@ -39,10 +38,10 @@ public final class GroundItemTick extends Tickable {
                 this.stop();
             }
         } else {
-            if (this.item.isAvailable())
+            if (this.item.isAvailable()) {
                 this.item.remove();
+            }
             this.stop();
         }
     }
-
 }

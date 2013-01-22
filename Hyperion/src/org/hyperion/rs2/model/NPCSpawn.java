@@ -14,7 +14,6 @@ public class NPCSpawn {
      * The logger instance.
      */
     private static final Logger logger = Logger.getLogger(NPCSpawn.class.getName());
-
     /**
      * The list of spawns
      */
@@ -45,7 +44,6 @@ public class NPCSpawn {
         region.addNpc(npc);
         World.getWorld().register(npc);
     }
-
     /**
      * The NPC id.
      */
@@ -54,7 +52,6 @@ public class NPCSpawn {
      * The facing direction.
      */
     private int direction;
-
     /**
      * The spawn location.
      */
@@ -86,5 +83,4 @@ public class NPCSpawn {
     public Location getSpawnLocation() {
         return spawnLocation;
     }
-
 }

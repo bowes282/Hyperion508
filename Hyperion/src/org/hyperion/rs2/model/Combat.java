@@ -25,8 +25,7 @@ public class Combat {
         /**
          * Magic-based attacks.
          */
-        MAGIC,
-    }
+        MAGIC,}
 
     public static class CombatSession {
 
@@ -175,10 +174,10 @@ public class Combat {
      * Inflicts damage on the recipient.
      *
      * @param recipient The entity taking the damage.
-     * @param damage    The damage to be done.
+     * @param damage The damage to be done.
      */
     public static void inflictDamage(Entity recipient, Entity aggressor,
-                                     Hit damage) {
+            Hit damage) {
         if (recipient instanceof Player && aggressor != null) {
             final Player p = (Player) recipient;
             p.inflictDamage(damage, aggressor);
@@ -194,7 +193,7 @@ public class Combat {
      * @return An <code>int</code> representing the damage done.
      */
     public static Hit calculatePlayerHit(Entity source, Entity victim,
-                                         AttackType attack) {
+            AttackType attack) {
         int verdict = 0;
         HitType hit = HitType.NORMAL_DAMAGE;
         if (victim instanceof Player) {
@@ -218,12 +217,12 @@ public class Combat {
     /**
      * Carries out a single attack.
      *
-     * @param source     The entity source of the attack.
-     * @param victim     The entity victim of the attack.
+     * @param source The entity source of the attack.
+     * @param victim The entity victim of the attack.
      * @param attackType The type of attack.
      */
     public static void doAttack(Entity source, Entity victim,
-                                AttackType attackType) {
+            AttackType attackType) {
         if (!canAttack(source, victim)) {
             return;
         }

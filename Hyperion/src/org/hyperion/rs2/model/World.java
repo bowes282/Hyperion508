@@ -1,5 +1,13 @@
 package org.hyperion.rs2.model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
+import java.util.logging.Logger;
 import org.apache.mina.core.future.IoFuture;
 import org.apache.mina.core.future.IoFutureListener;
 import org.hyperion.rs2.Constants;
@@ -7,12 +15,6 @@ import org.hyperion.rs2.GameEngine;
 import org.hyperion.rs2.GenericWorldLoader;
 import org.hyperion.rs2.WorldLoader;
 import org.hyperion.rs2.WorldLoader.LoginResult;
-import org.hyperion.rs2.event.GameEventManager;
-import org.hyperion.rs2.event.GameEvents;
-import org.hyperion.rs2.tickable.event.Event;
-import org.hyperion.rs2.tickable.event.EventManager;
-import org.hyperion.rs2.tickable.event.impl.UpdateEvent;
-import org.hyperion.rs2.tickable.impl.CleanupTick;
 import org.hyperion.rs2.io.MapDataLoader;
 import org.hyperion.rs2.io.MapDataPacker;
 import org.hyperion.rs2.model.region.RegionManager;
@@ -23,27 +25,26 @@ import org.hyperion.rs2.task.Task;
 import org.hyperion.rs2.task.impl.SessionLoginTask;
 import org.hyperion.rs2.tickable.Tickable;
 import org.hyperion.rs2.tickable.TickableManager;
+import org.hyperion.rs2.event.Event;
+import org.hyperion.rs2.event.EventManager;
+import org.hyperion.rs2.event.impl.UpdateEvent;
+import org.hyperion.rs2.tickable.impl.CleanupTick;
 import org.hyperion.rs2.tickable.impl.RestoreEnergyTick;
 import org.hyperion.rs2.util.ConfigurationParser;
 import org.hyperion.rs2.util.EntityList;
 import org.hyperion.rs2.util.NameUtils;
+import org.hyperion.script.ScriptContext;
+import org.hyperion.script.ScriptEnvironment;
+import org.hyperion.script.ScriptEvents;
 import org.hyperion.script.impl.RubyEnvironment;
 import org.hyperion.util.BlockingExecutorService;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
-import java.util.logging.Logger;
 
 /**
  * @author 'Mystic Flow
  * @author Linux
  */
 public final class World {
+
     /**
      * Logging class.
      */
@@ -75,15 +76,11 @@ public final class World {
     /**
      * The game events
      */
-    private final GameEvents gameEvents = new GameEvents(this);
-    /**
-     * The game event manager
-     */
-    private final GameEventManager gameEventManager = new GameEventManager();
+    private final ScriptEvents scriptEvents = new ScriptEvents(this);
     /**
      * The script environment
      */
-    private final RubyEnvironment rubyEnvironment = new RubyEnvironment(Constants.SCRIPTS_DIR.getPath());
+    private final ScriptEnvironment rubyEnvironment = new RubyEnvironment(Constants.SCRIPTS_DIR);
     /**
      * The game engine.
      */
@@ -114,14 +111,14 @@ public final class World {
             public Object call() throws Exception {
                 /*
                  * Check if mapdata packed file exists, if not, then we pack it.
-				 */
+                 */
                 final File packedFile = new File("data/mapdata.dat");
                 if (!packedFile.exists()) {
                     MapDataPacker.pack("data/mapdata/", "data/mapdata.dat");
                 }
                 /*
                  * Actually load the mapdata.
-				 */
+                 */
                 mapData = new HashMap<Integer, int[]>();
                 MapDataLoader.load(mapData);
                 return null;
@@ -155,11 +152,12 @@ public final class World {
      * events.
      *
      * @param engine The engine processing this world's tasks.
-     * @throws IOException            if an I/O error occurs loading configuration.
-     * @throws ClassNotFoundException if a class loaded through reflection was not found.
+     * @throws IOException if an I/O error occurs loading configuration.
+     * @throws ClassNotFoundException if a class loaded through reflection was
+     * not found.
      * @throws IllegalAccessException if a class could not be accessed.
      * @throws InstantiationException if a class could not be created.
-     * @throws IllegalStateException  if the world is already initialised.
+     * @throws IllegalStateException if the world is already initialised.
      */
     public void init(GameEngine engine) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         if (this.engine != null) {
@@ -168,7 +166,8 @@ public final class World {
             this.engine = engine;
             eventManager = new EventManager(engine);
             tickableManager = new TickableManager();
-            rubyEnvironment.start();
+            rubyEnvironment.setContext(new ScriptContext(this));
+            rubyEnvironment.init();
             registerGlobalEvents();
             loadConfiguration();
         }
@@ -177,8 +176,9 @@ public final class World {
     /**
      * Loads server configuration.
      *
-     * @throws IOException            if an I/O error occurs.
-     * @throws ClassNotFoundException if a class loaded through reflection was not found.
+     * @throws IOException if an I/O error occurs.
+     * @throws ClassNotFoundException if a class loaded through reflection was
+     * not found.
      * @throws IllegalAccessException if a class could not be accessed.
      * @throws InstantiationException if a class could not be created.
      */
@@ -266,8 +266,7 @@ public final class World {
     /**
      * Registers a new player.
      *
-     * @param player
-     *            The player to register.
+     * @param player The player to register.
      */
     /**
      * Loads a player's game in the work service.
@@ -288,11 +287,11 @@ public final class World {
                     bldr.put((byte) code);
                     pd.getSession().write(bldr.toPacket())
                             .addListener(new IoFutureListener<IoFuture>() {
-                                @Override
-                                public void operationComplete(IoFuture future) {
-                                    future.getSession().close(false);
-                                }
-                            });
+                        @Override
+                        public void operationComplete(IoFuture future) {
+                            future.getSession().close(false);
+                        }
+                    });
                 } else {
                     lr.getPlayer().getSession()
                             .setAttribute("player", lr.getPlayer());
@@ -355,11 +354,11 @@ public final class World {
         player.getSession().close(false);
         players.remove(player);
         logger.info("Unregistered player : " + player + " [online=" + players.size() + "]");
-                /*
+        /*
          * engine.submitWork(new Runnable() {
-		 * 
-		 * @Override public void run() { loader.savePlayer(player); } });
-		 */
+         * 
+         * @Override public void run() { loader.savePlayer(player); } });
+         */
     }
 
     /**
@@ -428,7 +427,7 @@ public final class World {
      *
      * @return rubyEnvironment The script environment
      */
-    public RubyEnvironment getRubyEnvironment() {
+    public ScriptEnvironment getRubyEnvironment() {
         return rubyEnvironment;
     }
 
@@ -464,17 +463,8 @@ public final class World {
      *
      * @return The game events
      */
-    public GameEvents getGameEvents() {
-        return gameEvents;
-    }
-
-    /**
-     * Gets the game event manager
-     *
-     * @return The game event manager
-     */
-    public GameEventManager getGameEventManager() {
-        return gameEventManager;
+    public ScriptEvents getScriptEvents() {
+        return scriptEvents;
     }
 
     /**

@@ -7,6 +7,7 @@ import org.hyperion.rs2.util.IoBufferUtils;
  * @author Linux
  */
 public final class Packet {
+
     /**
      * The type of packet.
      *
@@ -27,7 +28,6 @@ public final class Packet {
          */
         VARIABLE_SHORT;
     }
-
     /**
      * The opcode.
      */
@@ -44,8 +44,8 @@ public final class Packet {
     /**
      * Creates a packet.
      *
-     * @param opcode  The opcode.
-     * @param type    The type.
+     * @param opcode The opcode.
+     * @param type The type.
      * @param payload The payload.
      */
     public Packet(int opcode, Type type, IoBuffer payload) {
@@ -242,7 +242,6 @@ public final class Packet {
         return b2 << 24 & 0xFF | b1 << 16 & 0xFF | b4 << 8 & 0xFF | b3 & 0xFF;
     }
 
-
     public int getLEInt() {
         return (payload.get() & 0xff)
                 | ((payload.get() & 0xff) << 8)
@@ -294,7 +293,7 @@ public final class Packet {
     /**
      * Reads a series of bytes in reverse.
      *
-     * @param is     The target byte array.
+     * @param is The target byte array.
      * @param offset The offset.
      * @param length The length.
      */
@@ -307,7 +306,7 @@ public final class Packet {
     /**
      * Reads a series of type A bytes in reverse.
      *
-     * @param is     The target byte array.
+     * @param is The target byte array.
      * @param offset The offset.
      * @param length The length.
      */
@@ -320,7 +319,7 @@ public final class Packet {
     /**
      * Reads a series of bytes.
      *
-     * @param is     The target byte array.
+     * @param is The target byte array.
      * @param offset The offset.
      * @param length The length.
      */

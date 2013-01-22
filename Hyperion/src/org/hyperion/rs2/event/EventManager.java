@@ -1,17 +1,20 @@
-package org.hyperion.rs2.tickable.event;
+package org.hyperion.rs2.event;
 
 import org.hyperion.rs2.GameEngine;
 
 import java.util.concurrent.TimeUnit;
 
 public class EventManager {
+
     /**
-     * The <code>GameEngine</code> to manager events for.
+     * The
+     * <code>GameEngine</code> to manager events for.
      */
     private final GameEngine engine;
 
     /**
-     * Creates an <code>EventManager</code> for the specified
+     * Creates an
+     * <code>EventManager</code> for the specified
      * <code>GameEngine</code>.
      *
      * @param engine The game engine the manager is managing events for.
@@ -21,7 +24,8 @@ public class EventManager {
     }
 
     /**
-     * Submits a new event to the <code>GameEngine</code>.
+     * Submits a new event to the
+     * <code>GameEngine</code>.
      *
      * @param event The event to submit.
      */

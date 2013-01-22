@@ -10,13 +10,15 @@ import java.util.List;
  * @author Graham
  */
 public abstract class Entity {
+
     /**
      * The default, i.e. spawn, location.
      */
     public static final Location DEFAULT_LOCATION = Location.create(3200, 3200,
             0);
     /**
-     * The index in the <code>EntityList</code>.
+     * The index in the
+     * <code>EntityList</code>.
      */
     private int index;
     /**
@@ -158,7 +160,7 @@ public abstract class Entity {
      * Set the entity's autoretaliation setting.
      *
      * @param b <code>true/false</code> Whether or not this entity will
-     *          autoretaliate when attacked.
+     * autoretaliate when attacked.
      */
     public void setAutoRetaliating(boolean b) {
         isAutoRetaliating = b;
@@ -168,7 +170,7 @@ public abstract class Entity {
      * Get this entity's autoretaliation setting.
      *
      * @return <code>true</code> if autoretaliation is on, <code>false</code> if
-     *         not.
+     * not.
      */
     public boolean isAutoRetaliating() {
         return isAutoRetaliating;
@@ -223,7 +225,7 @@ public abstract class Entity {
      * Gets the face location.
      *
      * @return The face location, or <code>null</code> if the entity is not
-     *         facing.
+     * facing.
      */
     public Location getFaceLocation() {
         return face;
@@ -528,7 +530,7 @@ public abstract class Entity {
      * Deal a hit to the entity.
      *
      * @param damage The damage to be done.
-     * @param type   The type of damage we are inflicting.
+     * @param type The type of damage we are inflicting.
      */
     public abstract void inflictDamage(int damage, Damage.HitType type);
 

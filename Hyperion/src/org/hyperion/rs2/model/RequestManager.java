@@ -1,6 +1,7 @@
 package org.hyperion.rs2.model;
 
 public class RequestManager {
+
     /**
      * Represents the different types of request.
      *

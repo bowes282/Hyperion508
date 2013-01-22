@@ -8,11 +8,11 @@ import org.hyperion.rs2.model.Player;
  * @author Linux
  */
 public class Wilderness {
+
     /**
      * The last wilderness level
      */
     private int lastKnownWildernessLevel;
-
     /**
      * Check if a update is needed.
      */

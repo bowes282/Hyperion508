@@ -1,7 +1,7 @@
 package org.hyperion.rs2.model;
 
 import org.apache.mina.core.session.IoSession;
-import org.hyperion.script.Called;
+import org.hyperion.script.util.Called;
 
 /**
  * @author 'Mystic Flow
@@ -30,9 +30,9 @@ public final class PlayerDetails {
      * Creates the player details class.
      *
      * @param session The session.
-     * @param name    The name.
-     * @param pass    The password.
-     * @param isHD    The HD state
+     * @param name The name.
+     * @param pass The password.
+     * @param isHD The HD state
      */
     public PlayerDetails(IoSession session, String name, String pass, boolean isHD) {
         this.session = session;
@@ -42,7 +42,8 @@ public final class PlayerDetails {
     }
 
     /**
-     * Gets the <code>IoSession</code>.
+     * Gets the
+     * <code>IoSession</code>.
      *
      * @return The <code>IoSession</code>.
      */

@@ -3,6 +3,7 @@ package org.hyperion.rs2.task;
 import org.hyperion.rs2.GameEngine;
 
 public interface Task {
+
     /**
      * Executes the task. The general contract of the execute method is that it
      * may take any action whatsoever.

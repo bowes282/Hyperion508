@@ -17,37 +17,41 @@ import java.util.logging.Logger;
  * @author Graham
  */
 public final class RS2Server {
+
     /**
      * The port to listen on.
      */
     public static final int PORT = 43594;
-
     /**
      * The revision
      */
     public static final int VERSION = 508;
-
     /**
      * Logger instance.
      */
     private static final Logger logger = Logger.getLogger(RS2Server.class.getName());
     /**
-     * The <code>IoAcceptor</code> instance.
+     * The
+     * <code>IoAcceptor</code> instance.
      */
     private final IoAcceptor acceptor = new NioSocketAcceptor();
     /**
-     * The <code>GameEngine</code> instance.
+     * The
+     * <code>GameEngine</code> instance.
      */
     private static final GameEngine engine = new GameEngine();
 
     /**
-     * Creates the server and the <code>GameEngine</code> and initializes the
+     * Creates the server and the
+     * <code>GameEngine</code> and initializes the
      * <code>World</code>.
      *
-     * @throws IOException            if an I/O error occurs loading the world.
+     * @throws IOException if an I/O error occurs loading the world.
      * @throws ClassNotFoundException if a class the world loads was not found.
-     * @throws IllegalAccessException if a class loaded by the world was not accessible.
-     * @throws InstantiationException if a class loaded by the world was not created.
+     * @throws IllegalAccessException if a class loaded by the world was not
+     * accessible.
+     * @throws InstantiationException if a class loaded by the world was not
+     * created.
      */
     public RS2Server() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         World.getWorld().init(engine);
@@ -68,7 +72,8 @@ public final class RS2Server {
     }
 
     /**
-     * Starts the <code>GameEngine</code>.
+     * Starts the
+     * <code>GameEngine</code>.
      *
      * @throws ExecutionException if an error occured during background loading.
      */
@@ -83,7 +88,8 @@ public final class RS2Server {
     }
 
     /**
-     * Gets the <code>GameEngine</code>.
+     * Gets the
+     * <code>GameEngine</code>.
      *
      * @return The game engine.
      */

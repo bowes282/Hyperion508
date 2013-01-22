@@ -66,5 +66,4 @@ public abstract class InspectAction extends Action {
             stop();
         }
     }
-
 }

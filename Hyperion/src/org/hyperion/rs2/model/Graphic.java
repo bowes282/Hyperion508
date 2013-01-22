@@ -1,6 +1,7 @@
 package org.hyperion.rs2.model;
 
 public class Graphic {
+
     /**
      * The id.
      */
@@ -23,7 +24,7 @@ public class Graphic {
     /**
      * Creates a graphic with a delay
      *
-     * @param id    The id.
+     * @param id The id.
      * @param delay The delay.
      * @return The new graphic object.
      */
@@ -34,7 +35,7 @@ public class Graphic {
     /**
      * Creates a graphic.
      *
-     * @param id    The id.
+     * @param id The id.
      * @param delay The delay.
      */
     private Graphic(int id, int delay) {

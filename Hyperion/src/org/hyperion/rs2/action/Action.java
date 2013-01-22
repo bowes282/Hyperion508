@@ -1,6 +1,6 @@
 package org.hyperion.rs2.action;
 
-import org.hyperion.rs2.tickable.event.Event;
+import org.hyperion.rs2.event.Event;
 import org.hyperion.rs2.model.Player;
 
 public abstract class Action extends Event {
@@ -19,8 +19,7 @@ public abstract class Action extends Event {
         /**
          * This indicates actions will never be queued.
          */
-        NEVER,
-    }
+        NEVER,}
 
     /**
      * A queue policy determines whether the action can occur while walking.
@@ -41,11 +40,10 @@ public abstract class Action extends Event {
         /**
          * This indicates actions can continue while following.
          */
-        FOLLOW,
-    }
-
+        FOLLOW,}
     /**
-     * The <code>Player</code> associated with this ActionEvent.
+     * The
+     * <code>Player</code> associated with this ActionEvent.
      */
     private final Player player;
 
@@ -53,7 +51,7 @@ public abstract class Action extends Event {
      * Creates a new ActionEvent.
      *
      * @param player The player.
-     * @param delay  The initial delay.
+     * @param delay The initial delay.
      */
     public Action(Player player, long delay) {
         super(delay);

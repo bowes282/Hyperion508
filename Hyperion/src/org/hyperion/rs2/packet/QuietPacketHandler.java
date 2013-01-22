@@ -11,5 +11,4 @@ public class QuietPacketHandler implements PacketHandler {
     public PacketListener handle(Player player, Packet packet) {
         return new DefaultPacket();
     }
-
 }

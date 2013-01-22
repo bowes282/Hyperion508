@@ -12,29 +12,29 @@ public class RS2Encoder implements ProtocolEncoder {
     public void encode(IoSession session, Object in, ProtocolEncoderOutput out) throws Exception {
         final Packet p = (Packet) in;
 
-		/*
+        /*
          * Check what type the packet is.
-		 */
+         */
         if (p.isRaw()) {            /*
              * If the packet is raw, send its payload.
-			 */
+             */
             out.write(p.getPayload());
         } else {
-			/*
-			 * Get the packet attributes.
-			 */
+            /*
+             * Get the packet attributes.
+             */
             final int opcode = p.getOpcode();
             final Packet.Type type = p.getType();
             final int length = p.getLength();
 
-			/*
-			 * Encrypt the packet opcode.
-			 */
+            /*
+             * Encrypt the packet opcode.
+             */
             // opcode += outCipher.getNextValue();
 
-			/*
-			 * Compute the required size for the buffer.
-			 */
+            /*
+             * Compute the required size for the buffer.
+             */
             int finalLength = length + 1;
             switch (type) {
                 case VARIABLE:
@@ -45,10 +45,10 @@ public class RS2Encoder implements ProtocolEncoder {
                     break;
             }
 
-			/*
-			 * Create the buffer and write the opcode (and length if the packet
-			 * is variable-length).
-			 */
+            /*
+             * Create the buffer and write the opcode (and length if the packet
+             * is variable-length).
+             */
             final IoBuffer buffer = IoBuffer.allocate(finalLength);
             buffer.put((byte) opcode);
             switch (type) {
@@ -60,14 +60,14 @@ public class RS2Encoder implements ProtocolEncoder {
                     break;
             }
 
-			/*
-			 * Write the payload itself.
-			 */
+            /*
+             * Write the payload itself.
+             */
             buffer.put(p.getPayload());
 
-			/*
-			 * Flip and dispatch the packet.
-			 */
+            /*
+             * Flip and dispatch the packet.
+             */
             out.write(buffer.flip());
         }
     }

@@ -12,9 +12,8 @@ import org.hyperion.rs2.net.Packet;
 import java.util.Collection;
 
 /**
- * Whenever a Client clicks on a GroundObject, this class will be
- * executed. If the target GroundItem is found, a PickupItemAction
- * instance will be created.
+ * Whenever a Client clicks on a GroundObject, this class will be executed. If
+ * the target GroundItem is found, a PickupItemAction instance will be created.
  *
  * @author Bloodraider
  */
@@ -41,11 +40,11 @@ public final class PickupItemPacketHandler implements PacketHandler {
             }
         }
 
-        if (groundItem == null)
+        if (groundItem == null) {
             return new DefaultPacket();
+        }
 
         player.getActionQueue().addAction(new PickupItemAction(player, groundItem));
         return new DefaultPacket();
     }
-
 }

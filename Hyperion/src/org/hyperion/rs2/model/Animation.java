@@ -1,6 +1,7 @@
 package org.hyperion.rs2.model;
 
 public class Animation {
+
     /**
      * The id.
      */
@@ -23,7 +24,7 @@ public class Animation {
     /**
      * Creates an animation with a delay.
      *
-     * @param id    The animation id.
+     * @param id The animation id.
      * @param delay The animation delay.
      * @return
      */
@@ -34,7 +35,7 @@ public class Animation {
     /**
      * Create an animation.
      *
-     * @param id    The animation id.
+     * @param id The animation id.
      * @param delay The animation delay.
      */
     private Animation(int id, int delay) {

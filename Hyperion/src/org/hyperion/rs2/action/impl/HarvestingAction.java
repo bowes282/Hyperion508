@@ -88,10 +88,9 @@ public abstract class HarvestingAction extends Action {
      * Gets reward type.
      *
      * @return <code>true/false</code> Whether items are rewarded periodically
-     *         during the action.
+     * during the action.
      */
     public abstract boolean getPeriodicRewards();
-
     /**
      * The total number of cycles.
      */

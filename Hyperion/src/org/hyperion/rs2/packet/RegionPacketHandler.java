@@ -23,8 +23,9 @@ public class RegionPacketHandler implements PacketHandler {
         Collection<GroundItem> items = r.getGroundItems();
 
         for (GroundItem g : items) {
-            if (g.isAvailable() && g.isGlobal())
+            if (g.isAvailable() && g.isGlobal()) {
                 player.getActionSender().sendGroundItemCreation(g);
+            }
         }
         return new DefaultPacket();
     }

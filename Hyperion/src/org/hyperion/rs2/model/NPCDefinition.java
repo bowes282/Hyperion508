@@ -13,9 +13,7 @@ import java.nio.channels.FileChannel.MapMode;
 import java.util.logging.Logger;
 
 /**
- * <p>
- * Represents a type of NPC.
- * </p>
+ * <p> Represents a type of NPC. </p>
  *
  * @author Graham Edgecombe
  */
@@ -25,7 +23,6 @@ public class NPCDefinition {
      * Logger instance.
      */
     private static final Logger logger = Logger.getLogger(NPCDefinition.class.getName());
-
     /**
      * The definitions array.
      */
@@ -43,8 +40,9 @@ public class NPCDefinition {
     /**
      * Dumps the NPC definitions.
      *
-     * @throws IOException           if an I/O error occurs.
-     * @throws IllegalStateException if the definitions have been loaded already.
+     * @throws IOException if an I/O error occurs.
+     * @throws IllegalStateException if the definitions have been loaded
+     * already.
      */
     public static void dump() {
         try {
@@ -110,9 +108,11 @@ public class NPCDefinition {
     }
 
     public static int forName(String text) {
-        for (NPCDefinition d : definitions)
-            if (d.name.equalsIgnoreCase(text))
+        for (NPCDefinition d : definitions) {
+            if (d.name.equalsIgnoreCase(text)) {
                 return d.id;
+            }
+        }
         return -1;
     }
 
@@ -126,8 +126,9 @@ public class NPCDefinition {
     /**
      * Loads the item definitions.
      *
-     * @throws IOException           if an I/O error occurs.
-     * @throws IllegalStateException if the definitions have been loaded already.
+     * @throws IOException if an I/O error occurs.
+     * @throws IllegalStateException if the definitions have been loaded
+     * already.
      */
     public static void init() throws IOException {
         if (definitions != null) {
@@ -196,32 +197,26 @@ public class NPCDefinition {
     public static void setDefinitions(NPCDefinition[] definitions) {
         NPCDefinition.definitions = definitions;
     }
-
     /**
      * The npc's id.
      */
     private int id;
-
     /**
      * The npc's name.
      */
     private String name;
-
     /**
      * The npc's description.
      */
     private String description;
-
     /**
      * The npc's size.
      */
     private int size;
-
     /**
      * The npc's combat level.
      */
     private int combatLevel;
-
     /**
      * The npc's right click options.
      */
@@ -289,5 +284,4 @@ public class NPCDefinition {
     public void setDescription(String description) {
         this.description = description;
     }
-
 }

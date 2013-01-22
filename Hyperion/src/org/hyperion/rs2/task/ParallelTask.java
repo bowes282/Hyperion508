@@ -32,7 +32,6 @@ public class ParallelTask implements Task {
     public void execute(final GameEngine context) {
         for (final Task task : tasks) {
             context.submitTask(new Runnable() {
-
                 @Override
                 public void run() {
                     task.execute(context);

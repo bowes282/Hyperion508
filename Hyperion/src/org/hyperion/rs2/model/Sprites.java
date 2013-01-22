@@ -32,7 +32,7 @@ public class Sprites {
     /**
      * Sets the sprites.
      *
-     * @param primary   The primary sprite.
+     * @param primary The primary sprite.
      * @param secondary The secondary sprite.
      */
     public void setSprites(int primary, int secondary) {

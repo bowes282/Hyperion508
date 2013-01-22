@@ -1,19 +1,17 @@
 package org.hyperion.script.impl;
 
-import org.hyperion.rs2.Constants;
-import org.hyperion.script.GameContext;
-import org.hyperion.script.ScriptEnvironment;
-import org.jruby.RubyInstanceConfig;
-import org.jruby.embed.LocalContextScope;
-import org.jruby.embed.PathType;
-import org.jruby.embed.ScriptingContainer;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
+import org.hyperion.script.ScriptContext;
+import org.hyperion.script.ScriptEnvironment;
+import org.jruby.RubyInstanceConfig;
+import org.jruby.embed.LocalContextScope;
+import org.jruby.embed.ScriptingContainer;
 
 /**
  * @date 1/20/13
@@ -25,62 +23,96 @@ public class RubyEnvironment implements ScriptEnvironment {
      * The scripting container.
      */
     private ScriptingContainer container = new ScriptingContainer();
-
+    /**
+     * The script path
+     */
+    private File scriptBasePath;
+    /**
+     * The script parameters
+     */
+    final Map<String, Object> params = new HashMap<>();
 
     /**
-     * Parses the bootstrapper.
+     * Creates the jRuby Script Environment
+     *
+     * @param scriptStartingPoint The loading path
+     */
+    public RubyEnvironment(File scriptStartingPoint) {
+        this.scriptBasePath = scriptStartingPoint;
+        /*
+         * The SINGLETHREADED context makes sure that the container and
+         * associated scripts are reloaded fully each time the service is
+         * refreshed or updated.
+         */
+        container = new ScriptingContainer(LocalContextScope.SINGLETHREAD);
+        container.setLoadPaths(Arrays.asList(scriptStartingPoint.getPath()));
+        container.setCompileMode(RubyInstanceConfig.CompileMode.JIT);
+    }
+
+    /**
+     * Initializes scripting
      *
      * @throws IOException if an I/O error occurs.
      */
-    private void parseBootstrapper() throws IOException {
-        File f = new File(Constants.SCRIPTS_DIR.getPath() + "/bootstrap.rb");
-        InputStream is = new FileInputStream(f);
-        try {
+    @Override
+    public void init() throws IOException {
+        File f = new File(scriptBasePath + File.separator + "bootstrap.rb");
+        try (InputStream is = new FileInputStream(f)) {
             parse(is, f.getAbsolutePath());
-        } finally {
-            is.close();
         }
     }
 
+    /**
+     * Runs a script
+     *
+     * @param is The script directory
+     * @param name The script name
+     */
     @Override
     public void parse(InputStream is, String name) {
         container.runScriptlet(is, name);
     }
 
+    /**
+     * Sets the script context
+     *
+     * @param context The context to set
+     */
     @Override
-    public void setContext(GameContext context) {
-        container.put("$ctx", context);
+    public void setContext(ScriptContext context) {
+        container.put("game", context);
     }
 
-    private final String scriptBasePath;
-
-    public RubyEnvironment(String scriptStartingPoint) {
-        this.scriptBasePath = scriptStartingPoint;
-
-		/*
-         * The SINGLETHREADED context makes sure that the container and
-		 * associated scripts are reloaded fully each time the service is
-		 * refreshed or updated.
-		 */
-        container = new ScriptingContainer(LocalContextScope.SINGLETHREAD);
-        container.setLoadPaths(Arrays.asList(scriptStartingPoint));
-        container.setCompileMode(RubyInstanceConfig.CompileMode.JIT);
-    }
-
+    /**
+     * Calls the scripts
+     *
+     * @param eventName The script event name
+     * @param params The script parameters
+     */
+    @Override
     public void callScripts(String eventName, Map<String, Object> params) {
-        container.callMethod(null, "fire_event", eventName, params);
+        container.callMethod(null, "execute_event", eventName, params);
     }
 
-    public void start() {
-        container.runScriptlet(PathType.ABSOLUTE, scriptBasePath + File.separator + "bootstrap.rb");
+    /**
+     * Sets the script parameters
+     *
+     * @param key The key
+     * @param args The arguments
+     */
+    @Override
+    public RubyEnvironment setParams(String key, Object args) {
+        params.put(key, args);
+        return this;
     }
 
-    public static void main(String args[]) {
-        new RubyEnvironment(Constants.SCRIPTS_DIR.getPath()).start();
+    /**
+     * Get the parameters
+     *
+     * @return params The parameters
+     */
+    @Override
+    public Map<String, Object> getParams() {
+        return params;
     }
-
-    public void stop() {
-        container.clear();
-    }
-
 }

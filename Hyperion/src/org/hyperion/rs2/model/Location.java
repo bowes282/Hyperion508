@@ -6,12 +6,10 @@ public final class Location {
      * The x coordinate.
      */
     private final int x;
-
     /**
      * The y coordinate.
      */
     private final int y;
-
     /**
      * The z coordinate.
      */
@@ -130,7 +128,7 @@ public final class Location {
      *
      * @param other The other location.
      * @return <code>true</code> if the location is in range, <code>false</code>
-     *         if not.
+     * if not.
      */
     public boolean isWithinDistance(Location other) {
         if (z != other.z) {
@@ -154,7 +152,7 @@ public final class Location {
      *
      * @param other The other location.
      * @return <code>true</code> if the location is in range, <code>false</code>
-     *         if not.
+     * if not.
      */
     public boolean isWithinInteractionDistance(Location other) {
         if (z != other.z) {

@@ -26,112 +26,90 @@ public class EatingAction extends DestructionAction {
          * Anchovies
          */
         ANCHOVIE(319, 1),
-
         /**
          * Shrimp
          */
         SHRIMP(315, 3),
-
         /**
          * Chicken
          */
         CHICKEN(2140, 3),
-
         /**
          * Meat
          */
         MEAT(2142, 3),
-
         /**
          * Cake
          */
         CAKE(1891, 4, 1893),
-
         /**
          * Bread
          */
         BREAD(2309, 5),
-
         /**
          * Herring
          */
         HERRING(347, 5),
-
         /**
          * Trout
          */
         TROUT(333, 7),
-
         /**
          * Cod
          */
         COD(339, 7),
-
         /**
          * Pike
          */
         PIKE(351, 8),
-
         /**
          * Salmon
          */
         SALMON(329, 9),
-
         /**
          * Tuna
          */
         TUNA(361, 10),
-
         /**
          * Lobster
          */
         LOBSTER(379, 12),
-
         /**
          * Bass
          */
         BASS(365, 13),
-
         /**
          * Swordfish
          */
         SWORDFISH(373, 14),
-
         /**
          * Monkfish
          */
         MONKFISH(7946, 16),
-
         /**
          * Shark
          */
         SHARK(385, 20),
-
         /**
          * Sea Turtle
          */
         TURTLE(397, 21),
-
         /**
          * Manta Ray
          */
         MANTA(391, 22);
-
         /**
          * The food id
          */
         private int id;
-
         /**
          * The healing health
          */
         private int heal;
-
         /**
          * The new food id if needed
          */
         private int newId;
-
         /**
          * A map of object ids to foods.
          */
@@ -159,7 +137,7 @@ public class EatingAction extends DestructionAction {
         /**
          * Represents a food being eaten
          *
-         * @param id   The food id
+         * @param id The food id
          * @param heal The healing health received
          */
         private Food(int id, int heal) {
@@ -170,8 +148,8 @@ public class EatingAction extends DestructionAction {
         /**
          * Represents a part of a food item being eaten (example: cake)
          *
-         * @param id    The food id
-         * @param heal  The heal amount
+         * @param id The food id
+         * @param heal The heal amount
          * @param newId The new food id
          */
         private Food(int id, int heal, int newId) {
@@ -207,12 +185,10 @@ public class EatingAction extends DestructionAction {
             return newId;
         }
     }
-
     /**
      * The food type.
      */
     private final Food food;
-
     /**
      * The delay.
      */
@@ -222,7 +198,7 @@ public class EatingAction extends DestructionAction {
      * Creates the action.
      *
      * @param player The player.
-     * @param food   The food.
+     * @param food The food.
      */
     public EatingAction(Player player, Food food) {
         super(player);

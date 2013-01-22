@@ -13,36 +13,30 @@ import java.util.Collection;
 public final class GroundItem {
 
     /**
-     * The owner of this GroundItem. Will be the only person who is able
-     * to see the it until it goes Global.
+     * The owner of this GroundItem. Will be the only person who is able to see
+     * the it until it goes Global.
      */
     private final Player player;
-
     /**
      * The Item
      */
     private final Item item;
-
     /**
      * The Region
      */
     private final Region region;
-
     /**
      * The Location
      */
     private final Location location;
-
     /**
      * The GroundItemEvent.
      */
     private final GroundItemTick lifespan;
-
     /**
      * Determines if this GroundItem is visible to everyone.
      */
     private boolean global;
-
     /**
      * Determines whether or not this GroundItem is still available.
      */
@@ -52,7 +46,7 @@ public final class GroundItem {
      * Creates a new GroundItem instance, and adds it to the region.
      *
      * @param player The owner.
-     * @param item   The Item.
+     * @param item The Item.
      */
     private GroundItem(Player player, Item item) {
         this.item = item;
@@ -69,7 +63,7 @@ public final class GroundItem {
      * GroundItemEvent into the world.
      *
      * @param player The owner.
-     * @param item   The Item.
+     * @param item The Item.
      */
     public static void create(Player player, Item item) {
         GroundItem g = new GroundItem(player, item);
@@ -85,22 +79,25 @@ public final class GroundItem {
 
         Collection<Player> players = this.region.getPlayers();
 
-        for (Player p : players)
-            if (p != this.player)
+        for (Player p : players) {
+            if (p != this.player) {
                 p.getActionSender().sendGroundItemCreation(this);
+            }
+        }
     }
 
     /**
-     * When called, the GroundItem will be removed from the region for
-     * any player who can see it, and it's event will be stopped.
+     * When called, the GroundItem will be removed from the region for any
+     * player who can see it, and it's event will be stopped.
      * <p/>
      * Synchronized in order to prevent duplication.
      * <p/>
      * The player who picked the item up, or null.
      */
     public synchronized boolean remove() {
-        if (!this.isAvailable())
+        if (!this.isAvailable()) {
             return false;
+        }
 
         this.available = false;
 
@@ -110,10 +107,12 @@ public final class GroundItem {
         if (this.isGlobal()) {
             Collection<Player> players = this.region.getPlayers();
 
-            for (Player p : players)
+            for (Player p : players) {
                 p.getActionSender().sendGroundItemRemoval(this);
-        } else
+            }
+        } else {
             this.player.getActionSender().sendGroundItemRemoval(this);
+        }
         return true;
     }
 
@@ -148,5 +147,4 @@ public final class GroundItem {
     public boolean isAvailable() {
         return this.available;
     }
-
 }

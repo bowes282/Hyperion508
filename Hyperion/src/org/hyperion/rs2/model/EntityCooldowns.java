@@ -33,14 +33,13 @@ public class EntityCooldowns {
         /**
          * Represents a special attack bar segmentcooldown.
          */
-        SPECIAL_ATTACK,
-    }
+        SPECIAL_ATTACK,}
 
     /**
      * Checks if an update required.
      *
      * @return <code>true</code> if 1 or more flags are set, <code>false</code>
-     *         if not.
+     * if not.
      */
     public boolean areCooldownsPending() {
         return !cooldowns.isEmpty();
@@ -59,7 +58,7 @@ public class EntityCooldowns {
     /**
      * Sets a cooldown.
      *
-     * @param flag  The flag.
+     * @param flag The flag.
      * @param value The value.
      */
     public void set(CooldownFlags cooldown, boolean value) {

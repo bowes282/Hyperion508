@@ -8,9 +8,8 @@ import org.hyperion.rs2.model.Player;
 import org.hyperion.rs2.net.Packet;
 
 /**
- * Whenever a Client attempts to drop an item, this class
- * will be executed. It creates a new GroundItem and removes
- * the item from the Player's Inventory.
+ * Whenever a Client attempts to drop an item, this class will be executed. It
+ * creates a new GroundItem and removes the item from the Player's Inventory.
  *
  * @author Bloodraider
  */

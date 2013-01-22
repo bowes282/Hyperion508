@@ -6,6 +6,7 @@ import java.util.BitSet;
  * @author 'Mystic flow
  */
 public class UpdateFlags {
+
     /**
      * The bitset (flag data).
      */
@@ -57,14 +58,13 @@ public class UpdateFlags {
         /**
          * Update flag used to transform npc to another.
          */
-        TRANSFORM,
-    }
+        TRANSFORM,}
 
     /**
      * Checks if an update required.
      *
      * @return <code>true</code> if 1 or more flags are set, <code>false</code>
-     *         if not.
+     * if not.
      */
     public boolean isUpdateRequired() {
         return !flags.isEmpty();
@@ -82,7 +82,7 @@ public class UpdateFlags {
     /**
      * Sets a flag.
      *
-     * @param flag  The flag.
+     * @param flag The flag.
      * @param value The value.
      */
     public void set(UpdateFlag flag, boolean value) {

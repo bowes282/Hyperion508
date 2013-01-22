@@ -1,6 +1,6 @@
 package org.hyperion.util;
 
-import org.hyperion.rs2.tickable.event.Event;
+import org.hyperion.rs2.event.Event;
 import org.hyperion.rs2.model.World;
 
 import java.util.Deque;
@@ -8,20 +8,16 @@ import java.util.LinkedList;
 import java.util.logging.Logger;
 
 public class Benchmark {
+
     /**
      * Logging class.
      */
     private static final Logger logger = Logger.getLogger(Benchmark.class
             .getName());
-
     private static Deque<Long> memoryByteSamples = new LinkedList<Long>();
-
     private static Deque<Integer> networkByteSamples = new LinkedList<Integer>();
-
     private static long memoryBytes;
-
     private static long baseMemory;
-
     private static int networkBytes;
 
     public static void init() {

@@ -78,8 +78,8 @@ public class MiningAction extends HarvestingAction {
         /**
          * Creates the axe.
          *
-         * @param id        The id.
-         * @param level     The required level.
+         * @param id The id.
+         * @param level The required level.
          * @param animation The animation id.
          */
         private Pickaxe(int id, int level, int animation) {
@@ -192,7 +192,6 @@ public class MiningAction extends HarvestingAction {
                 }
             }
         }
-
         /**
          * The object ids of this node.
          */
@@ -213,10 +212,10 @@ public class MiningAction extends HarvestingAction {
         /**
          * Creates the node.
          *
-         * @param ore        The ore id.
-         * @param level      The required level.
+         * @param ore The ore id.
+         * @param level The required level.
          * @param experience The experience per ore.
-         * @param objects    The object ids.
+         * @param objects The object ids.
          */
         private Node(int ore, int level, double experience, int[] objects) {
             this.objects = objects;
@@ -261,7 +260,6 @@ public class MiningAction extends HarvestingAction {
             return experience;
         }
     }
-
     /**
      * The delay.
      */
@@ -288,10 +286,11 @@ public class MiningAction extends HarvestingAction {
     private final Node node;
 
     /**
-     * Creates the <code>WoodcuttingAction</code>.
+     * Creates the
+     * <code>WoodcuttingAction</code>.
      *
      * @param player The player performing the action.#
-     * @param tree   The tree.
+     * @param tree The tree.
      */
     public MiningAction(Player player, Location location, Node node) {
         super(player, location);
@@ -323,7 +322,7 @@ public class MiningAction extends HarvestingAction {
         if (pickaxe == null) {
             player.getActionSender()
                     .sendMessage(
-                            "You do not have a pickaxe for which you have the level to use.");
+                    "You do not have a pickaxe for which you have the level to use.");
             stop();
             return;
         }

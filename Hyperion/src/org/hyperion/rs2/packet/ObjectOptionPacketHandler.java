@@ -12,6 +12,7 @@ import org.hyperion.rs2.model.Player;
 import org.hyperion.rs2.net.Packet;
 
 public class ObjectOptionPacketHandler implements PacketHandler {
+
     /**
      * Option 1 opcode.
      */

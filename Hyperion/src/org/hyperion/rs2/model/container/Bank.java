@@ -6,6 +6,7 @@ import org.hyperion.rs2.model.Player;
 import org.hyperion.rs2.model.container.impl.InterfaceContainerListener;
 
 public class Bank {
+
     /**
      * The bank size.
      */
@@ -43,8 +44,8 @@ public class Bank {
      * /** Withdraws an item.
      *
      * @param player The player.
-     * @param slot   The slot in the player's inventory.
-     * @param id     The item id.
+     * @param slot The slot in the player's inventory.
+     * @param id The item id.
      * @param amount The amount of the item to deposit.
      */
     public static void withdraw(Player player, int slot, int amount) {
@@ -70,14 +71,14 @@ public class Bank {
                     && player.getInventory().getById(newId) == null) {
                 player.getActionSender()
                         .sendMessage(
-                                "You don't have enough inventory space to withdraw that many.");
+                        "You don't have enough inventory space to withdraw that many.");
             }
         } else {
             final int free = player.getInventory().freeSlots();
             if (transferAmount > free) {
                 player.getActionSender()
                         .sendMessage(
-                                "You don't have enough inventory space to withdraw that many.");
+                        "You don't have enough inventory space to withdraw that many.");
                 transferAmount = free;
             }
         }
@@ -93,7 +94,7 @@ public class Bank {
         } else {
             player.getActionSender()
                     .sendMessage(
-                            "You don't have enough inventory space to withdraw that many.");
+                    "You don't have enough inventory space to withdraw that many.");
         }
     }
 
@@ -101,8 +102,8 @@ public class Bank {
      * Deposits an item.
      *
      * @param player The player.
-     * @param slot   The slot in the player's inventory.
-     * @param id     The item id.
+     * @param slot The slot in the player's inventory.
+     * @param id The item id.
      * @param amount The amount of the item to deposit.
      */
     public static void deposit(Player player, int slot, int amount) {
@@ -127,7 +128,7 @@ public class Bank {
                         && player.getBank().getById(bankedId) == null) {
                     player.getActionSender()
                             .sendMessage(
-                                    "You don't have enough space in your bank account.");
+                            "You don't have enough space in your bank account.");
                 }
                 // we only need to remove from one stack
                 final int newInventoryAmount = item.getCount() - transferAmount;
@@ -140,7 +141,7 @@ public class Bank {
                 if (!player.getBank().add(new Item(bankedId, transferAmount))) {
                     player.getActionSender()
                             .sendMessage(
-                                    "You don't have enough space in your bank account.");
+                            "You don't have enough space in your bank account.");
                 } else {
                     player.getInventory().set(slot, newItem);
                     player.getInventory().fireItemsChanged();
@@ -150,19 +151,19 @@ public class Bank {
                 if (player.getBank().freeSlots() < transferAmount) {
                     player.getActionSender()
                             .sendMessage(
-                                    "You don't have enough space in your bank account.");
+                            "You don't have enough space in your bank account.");
                 }
                 if (!player.getBank().add(
                         new Item(item.getId(), transferAmount))) {
                     player.getActionSender()
                             .sendMessage(
-                                    "You don't have enough space in your bank account.");
+                            "You don't have enough space in your bank account.");
                 } else {
                     // we need to remove multiple items
                     for (int i = 0; i < transferAmount; i++) {
                         player.getInventory()
                                 .set(player.getInventory().getSlotById(
-                                        item.getId()), null);
+                                item.getId()), null);
                     }
                     player.getInventory().fireItemsChanged();
                 }

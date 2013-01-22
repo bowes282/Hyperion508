@@ -1,6 +1,7 @@
 package org.hyperion.rs2.model;
 
 public class ChatMessage {
+
     /**
      * The colour.
      */
@@ -17,9 +18,9 @@ public class ChatMessage {
     /**
      * Creates a new chat message.
      *
-     * @param color   The message colour.
+     * @param color The message colour.
      * @param effects The message effects.
-     * @param text    The packed chat text.
+     * @param text The packed chat text.
      */
     public ChatMessage(int color, int effects, String text) {
         this.color = color;

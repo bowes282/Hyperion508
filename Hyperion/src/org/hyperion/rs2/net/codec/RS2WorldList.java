@@ -39,16 +39,16 @@ public class RS2WorldList {
     /**
      * The WorldList constructor.
      *
-     * @param worldId  The WorldId
+     * @param worldId The WorldId
      * @param location The location
-     * @param flag     The flag
+     * @param flag The flag
      * @param activity The activity
-     * @param ip       The IP
-     * @param region   The region
-     * @param country  The country
+     * @param ip The IP
+     * @param region The region
+     * @param country The country
      */
     public RS2WorldList(int worldId, int location, int flag, String activity,
-                        String ip, String region, int country) {
+            String ip, String region, int country) {
         this.worldId = worldId;
         this.location = location;
         this.flag = flag;
@@ -120,5 +120,4 @@ public class RS2WorldList {
     public int getWorldId() {
         return worldId;
     }
-
 }

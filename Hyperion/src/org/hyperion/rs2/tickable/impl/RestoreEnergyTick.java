@@ -5,6 +5,7 @@ import org.hyperion.rs2.task.impl.RestoreEnergyTask;
 import org.hyperion.rs2.tickable.Tickable;
 
 public class RestoreEnergyTick extends Tickable {
+
     /**
      * The delay in milliseconds between restoring.
      */

@@ -9,6 +9,7 @@ import org.hyperion.rs2.net.Packet;
  * @author 'Mystic Flow
  */
 public class WalkingPacketHandler implements PacketHandler {
+
     final int FOLLOWING = 138;
 
     @Override

@@ -11,7 +11,6 @@ public class ProspectingAction extends InspectAction {
      * The node type.
      */
     private final Node node;
-
     /**
      * The delay.
      */
@@ -45,9 +44,8 @@ public class ProspectingAction extends InspectAction {
     public void giveRewards(Player player) {
         player.getActionSender().sendMessage(
                 "This rock contains "
-                        + ItemDefinition.forId(node.getOreId()).getName()
-                        .toLowerCase().replaceAll("ore", "").trim()
-                        + ".");
+                + ItemDefinition.forId(node.getOreId()).getName()
+                .toLowerCase().replaceAll("ore", "").trim()
+                + ".");
     }
-
 }

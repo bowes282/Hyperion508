@@ -8,16 +8,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ConfigurationParser {
+
     /**
      * The buffered reader.
      */
     private final BufferedReader reader;
     /**
-     * The simple mappings i.e. <code>key:value</code>.
+     * The simple mappings i.e.
+     * <code>key:value</code>.
      */
     private final Map<String, String> mappings = new HashMap<String, String>();
     /**
-     * The complex mappings i.e. <code>key[index]:value</code>.
+     * The complex mappings i.e.
+     * <code>key[index]:value</code>.
      */
     private final Map<String, Map<String, String>> complexMappings = new HashMap<String, Map<String, String>>();
 

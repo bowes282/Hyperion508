@@ -10,6 +10,7 @@ import java.nio.channels.FileChannel.MapMode;
 import java.util.logging.Logger;
 
 public class ItemDefinition {
+
     /**
      * Logger instance.
      */
@@ -77,7 +78,6 @@ public class ItemDefinition {
     public static ItemDefinition forId(int id) {
         return definitions[id];
     }
-
     /**
      * Id.
      */
@@ -110,21 +110,21 @@ public class ItemDefinition {
     /**
      * Creates the item definition.
      *
-     * @param id           The id.
-     * @param name         The name.
-     * @param examine      The description.
-     * @param noted        The noted flag.
-     * @param noteable     The noteable flag.
-     * @param stackable    The stackable flag.
-     * @param parentId     The non-noted id.
-     * @param notedId      The noted id.
-     * @param members      The members flag.
-     * @param shopValue    The shop price.
+     * @param id The id.
+     * @param name The name.
+     * @param examine The description.
+     * @param noted The noted flag.
+     * @param noteable The noteable flag.
+     * @param stackable The stackable flag.
+     * @param parentId The non-noted id.
+     * @param notedId The noted id.
+     * @param members The members flag.
+     * @param shopValue The shop price.
      * @param highAlcValue The high alc value.
-     * @param lowAlcValue  The low alc value.
+     * @param lowAlcValue The low alc value.
      */
     private ItemDefinition(int id, String name, String examine, boolean noted,
-                           boolean stackable, int equipId, int[] bonus) {
+            boolean stackable, int equipId, int[] bonus) {
         this.id = id;
         this.name = name;
         this.examine = examine;

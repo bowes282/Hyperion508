@@ -28,5 +28,4 @@ public class PlayerTickTask implements Task {
         }
         player.getWalkingQueue().processNextMovement();
     }
-
 }

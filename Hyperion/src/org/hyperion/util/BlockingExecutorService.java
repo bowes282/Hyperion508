@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.concurrent.*;
 
 /**
- * An <code>ExecutorService</code> that waits for all its events to finish
+ * An
+ * <code>ExecutorService</code> that waits for all its events to finish
  * executing.
  *
  * @author Graham Edgecombe
@@ -16,7 +17,6 @@ public class BlockingExecutorService implements ExecutorService {
      * The service backing this service.
      */
     private final ExecutorService service;
-
     /**
      * A list of pending tasks.
      */
@@ -93,7 +93,7 @@ public class BlockingExecutorService implements ExecutorService {
 
     @Override
     public <T> T invokeAny(Collection<? extends Callable<T>> tasks,
-                           long timeout, TimeUnit unit) throws InterruptedException,
+            long timeout, TimeUnit unit) throws InterruptedException,
             ExecutionException, TimeoutException {
         return service.invokeAny(tasks, timeout, unit);
     }
@@ -143,5 +143,4 @@ public class BlockingExecutorService implements ExecutorService {
     public void execute(Runnable command) {
         service.execute(command);
     }
-
 }

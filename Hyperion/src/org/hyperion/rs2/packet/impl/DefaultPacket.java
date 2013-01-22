@@ -1,7 +1,7 @@
 package org.hyperion.rs2.packet.impl;
 
 import org.hyperion.rs2.packet.PacketListener;
-import org.hyperion.script.Called;
+import org.hyperion.script.util.Called;
 
 /**
  * @date 1/20/13

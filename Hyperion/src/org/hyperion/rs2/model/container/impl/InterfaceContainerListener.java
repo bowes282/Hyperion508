@@ -5,6 +5,7 @@ import org.hyperion.rs2.model.container.Container;
 import org.hyperion.rs2.model.container.ContainerListener;
 
 public class InterfaceContainerListener implements ContainerListener {
+
     /**
      * The player.
      */
@@ -25,11 +26,11 @@ public class InterfaceContainerListener implements ContainerListener {
     /**
      * Creates the container listener.
      *
-     * @param player      The player.
+     * @param player The player.
      * @param interfaceId The interface id.
      */
     public InterfaceContainerListener(Player player, int interfaceId,
-                                      int childId, int type) {
+            int childId, int type) {
         this.player = player;
         this.interfaceId = interfaceId;
         this.childId = childId;

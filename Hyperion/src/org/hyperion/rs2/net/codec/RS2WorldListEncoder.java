@@ -11,22 +11,22 @@ public class RS2WorldListEncoder {
     private final static RS2WorldList[] worldList = new RS2WorldList[0];
 
     public static IoBuffer encode(boolean worldStatus,
-                                  boolean worldConfiguration) {        /*
+            boolean worldConfiguration) {        /*
          * The channel buffer.
-		 */
+         */
         final IoBuffer buffer = IoBuffer.allocate(1024);
-		/*
-		 * The world status writing as a byte.
-		 */
+        /*
+         * The world status writing as a byte.
+         */
         buffer.put((byte) (worldStatus ? 1 : 0));
-		/*
-		 * The world config writing as a byte.
-		 */
+        /*
+         * The world config writing as a byte.
+         */
         buffer.put((byte) (worldConfiguration ? 1 : 0));
 
-		/*
-		 * The world configuration data being written.
-		 */
+        /*
+         * The world configuration data being written.
+         */
         if (worldConfiguration) {
             IoBufferUtils.putSmart(buffer, worldList.length);
             setCountry(buffer);
@@ -43,27 +43,27 @@ public class RS2WorldListEncoder {
             buffer.putInt(-626474014); // != 0
         }
 
-		/*
-		 * The status data being written.
-		 */
+        /*
+         * The status data being written.
+         */
         if (worldStatus) {
             for (final RS2WorldList w : worldList) {
                 IoBufferUtils.putSmart(buffer, w.getWorldId()); // world id
                 buffer.putShort((short) 5); // player count
             }
         }
-		/*
-		 * The final data being written to the client.
-		 */
+        /*
+         * The final data being written to the client.
+         */
         buffer.flip();
         final IoBuffer finalBuffer = IoBuffer.allocate(buffer.limit() + 3);
         finalBuffer.put((byte) 0);
         finalBuffer.putShort((short) buffer.limit());
         finalBuffer.put(buffer);
         finalBuffer.flip();
-		/*
-		 * Finally we write the finalBuffer
-		 */
+        /*
+         * Finally we write the finalBuffer
+         */
         return finalBuffer;
     }
 

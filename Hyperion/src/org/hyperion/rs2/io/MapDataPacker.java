@@ -54,5 +54,4 @@ public class MapDataPacker {
             e.printStackTrace();
         }
     }
-
 }

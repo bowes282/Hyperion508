@@ -6,8 +6,8 @@ import org.hyperion.rs2.model.Location;
 import org.hyperion.rs2.model.Player;
 
 /**
- * Executed when the player clicks on a GroundItem. Responsible for
- * walking to and picking it up.
+ * Executed when the player clicks on a GroundItem. Responsible for walking to
+ * and picking it up.
  *
  * @author Bloodraider
  */
@@ -47,8 +47,9 @@ public final class PickupItemAction extends Action {
                 if (player.getInventory().hasRoomFor(item.getItem())) {
                     player.getInventory().add(this.item.getItem());
                     item.remove();
-                } else
+                } else {
                     player.getActionSender().sendMessage("You do not have enough room for that!");
+                }
             }
             this.stop();
         }

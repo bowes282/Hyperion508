@@ -17,7 +17,8 @@ public interface WorldLoader {
          */
         private final int returnCode;
         /**
-         * The player object, or <code>null</code> if the login failed.
+         * The player object, or
+         * <code>null</code> if the login failed.
          */
         private final Player player;
 
@@ -34,7 +35,7 @@ public interface WorldLoader {
          * Creates a login result that succeeded.
          *
          * @param returnCode The return code.
-         * @param player     The player object.
+         * @param player The player object.
          */
         public LoginResult(int returnCode, Player player) {
             this.returnCode = returnCode;

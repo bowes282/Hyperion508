@@ -12,8 +12,10 @@ import org.hyperion.rs2.task.impl.SessionMessageTask;
 import org.hyperion.rs2.task.impl.SessionOpenedTask;
 
 public class ConnectionHandler extends IoHandlerAdapter {
+
     /**
-     * The <code>GameEngine</code> instance.
+     * The
+     * <code>GameEngine</code> instance.
      */
     private final GameEngine engine = World.getWorld().getEngine();
 

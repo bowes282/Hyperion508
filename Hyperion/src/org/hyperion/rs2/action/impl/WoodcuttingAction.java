@@ -82,8 +82,8 @@ public class WoodcuttingAction extends HarvestingAction {
         /**
          * Creates the axe.
          *
-         * @param id        The id.
-         * @param level     The required level.
+         * @param id The id.
+         * @param level The required level.
          * @param animation The animation id.
          */
         private Axe(int id, int level, int animation) {
@@ -131,9 +131,9 @@ public class WoodcuttingAction extends HarvestingAction {
          * Normal tree.
          */
         NORMAL(1511, 1, 50, new int[]{1276, 1277, 1278, 1279, 1280, 1282,
-                1283, 1284, 1285, 1286, 1289, 1290, 1291, 1315, 1316, 1318,
-                1319, 1330, 1331, 1332, 1365, 1383, 1384, 2409, 3033, 3034,
-                3035, 3036, 3881, 3882, 3883, 5902, 5903, 5904}),
+    1283, 1284, 1285, 1286, 1289, 1290, 1291, 1315, 1316, 1318,
+    1319, 1330, 1331, 1332, 1365, 1383, 1384, 2409, 3033, 3034,
+    3035, 3036, 3881, 3882, 3883, 5902, 5903, 5904}),
         /**
          * Willow tree.
          */
@@ -191,7 +191,6 @@ public class WoodcuttingAction extends HarvestingAction {
                 }
             }
         }
-
         /**
          * The object ids of this tree.
          */
@@ -212,10 +211,10 @@ public class WoodcuttingAction extends HarvestingAction {
         /**
          * Creates the tree.
          *
-         * @param log        The log id.
-         * @param level      The required level.
+         * @param log The log id.
+         * @param level The required level.
          * @param experience The experience per log.
-         * @param objects    The object ids.
+         * @param objects The object ids.
          */
         private Tree(int log, int level, double experience, int[] objects) {
             this.objects = objects;
@@ -260,7 +259,6 @@ public class WoodcuttingAction extends HarvestingAction {
             return experience;
         }
     }
-
     /**
      * The delay.
      */
@@ -283,10 +281,11 @@ public class WoodcuttingAction extends HarvestingAction {
     private final Tree tree;
 
     /**
-     * Creates the <code>WoodcuttingAction</code>.
+     * Creates the
+     * <code>WoodcuttingAction</code>.
      *
      * @param player The player performing the action.#
-     * @param tree   The tree.
+     * @param tree The tree.
      */
     public WoodcuttingAction(Player player, Location location, Tree tree) {
         super(player, location);
@@ -324,7 +323,7 @@ public class WoodcuttingAction extends HarvestingAction {
         if (wc < tree.getRequiredLevel()) {
             player.getActionSender()
                     .sendMessage(
-                            "You do not have the required level to cut down that tree.");
+                    "You do not have the required level to cut down that tree.");
             stop();
             return;
         }
