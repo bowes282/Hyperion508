@@ -4,4 +4,12 @@
 *.jar
 *.war
 *.ear
-/Client/src/
+!/Hyperion/lib/slf4j-jdk14-1.5.8.jar
+!/Hyperion/lib/mina-core-2.0.0-M6.jar
+!/Hyperion/lib/jruby-complete-1.7.2.jar
+!/Hyperion/lib/commons-compress-1.0.jar
+!/Hyperion/lib/xpp3-1.1.4c.jar
+!/Hyperion/lib/xstream-1.3.1.jar
+!/Hyperion/lib/jython.jar
+!/Hyperion/lib/slf4j-api-1.5.8.jar
+/build/

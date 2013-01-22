@@ -28,7 +28,7 @@ def on(event_name, &block)
   (@handlers[event_name] ||= []) << block
 end
 
-def fire_event(event_name, params)
+def execute_event(event_name, params)
   context = Context.new *(params.values)
   (@handlers[event_name.to_sym] || []).each { |h| h.call(context) }
 end
