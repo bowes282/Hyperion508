@@ -14,7 +14,7 @@ public class ScriptContext {
     private final World world;
 
     /**
-     * Creates the plugin context.
+     * Creates the script context.
      *
      * @param context The server context.
      */
