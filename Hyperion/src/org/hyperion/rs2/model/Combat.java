@@ -1,11 +1,10 @@
 package org.hyperion.rs2.model;
 
-import org.hyperion.rs2.model.Damage.Hit;
-import org.hyperion.rs2.model.Damage.HitType;
-
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import org.hyperion.rs2.model.Damage.Hit;
+import org.hyperion.rs2.model.Damage.HitType;
 
 public class Combat {
 
@@ -148,7 +147,7 @@ public class Combat {
     public static int getAttackSpeed(Entity entity) {
         // TODO
         // double attackSpeed = player.getEquipment().getWeaponSpeed();
-        return 2200;
+        return 4;
     }
 
     /**
@@ -164,9 +163,6 @@ public class Combat {
         if (victim.isDead() || source.isDead()) {
             return false;
         }
-        if (source instanceof Player && victim instanceof Player) {
-            // attackable zones, etc
-        }
         return true;
     }
 
@@ -176,12 +172,15 @@ public class Combat {
      * @param recipient The entity taking the damage.
      * @param damage The damage to be done.
      */
-    public static void inflictDamage(Entity recipient, Entity aggressor,
-            Hit damage) {
+    public static void inflictDamage(Entity recipient, Entity aggressor, Hit damage) {
         if (recipient instanceof Player && aggressor != null) {
             final Player p = (Player) recipient;
             p.inflictDamage(damage, aggressor);
             p.playAnimation(Animation.create(434, 2));
+        } else if (recipient instanceof NPC && aggressor != null) {
+            final NPC n = (NPC) recipient;
+            n.inflictDamage(damage.getDamage(), damage.getType());
+            n.playAnimation(Animation.create(434, 2));
         }
     }
 
@@ -192,8 +191,7 @@ public class Combat {
      * @param victim The defending entity.
      * @return An <code>int</code> representing the damage done.
      */
-    public static Hit calculatePlayerHit(Entity source, Entity victim,
-            AttackType attack) {
+    public static Hit calculatePlayerHit(Entity source, Entity victim, AttackType attack) {
         int verdict = 0;
         HitType hit = HitType.NORMAL_DAMAGE;
         if (victim instanceof Player) {
@@ -221,14 +219,12 @@ public class Combat {
      * @param victim The entity victim of the attack.
      * @param attackType The type of attack.
      */
-    public static void doAttack(Entity source, Entity victim,
-            AttackType attackType) {
+    public static void doAttack(Entity source, Entity victim, AttackType attackType) {
         if (!canAttack(source, victim)) {
             return;
         }
         source.setInteractingEntity(victim);
         source.playAnimation(Animation.create(422, 1));
-        inflictDamage(victim, source,
-                calculatePlayerHit(source, victim, attackType));
+        inflictDamage(victim, source, calculatePlayerHit(source, victim, attackType));
     }
 }

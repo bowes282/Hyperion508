@@ -32,6 +32,10 @@ public class UpdateEvent extends Event {
 
     @Override
     public void execute() {
+        
+        /**
+         * Tick manager
+         */
         Iterator<Tickable> tickIt$ = World.getWorld().getTickableManager().getTickables().iterator();
         while (tickIt$.hasNext()) {
             Tickable t = tickIt$.next();

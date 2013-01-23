@@ -5,13 +5,8 @@ import org.hyperion.rs2.model.World;
 import org.hyperion.rs2.packet.PacketListener;
 import org.hyperion.script.util.Called;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.hyperion.rs2.model.Entity;
-import org.hyperion.rs2.model.NPC;
-import org.hyperion.script.impl.RubyEnvironment;
 
 /**
  * @author parabolika

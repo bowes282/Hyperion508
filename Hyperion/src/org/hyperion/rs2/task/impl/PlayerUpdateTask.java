@@ -280,11 +280,11 @@ public class PlayerUpdateTask implements Task {
         /*
          * We can used the cached update block!
          */
-        synchronized (otherPlayer) {        /*
-             if (otherPlayer.hasCachedUpdateBlock() && otherPlayer != player && !forceAppearance) {
-             packet.put(otherPlayer.getCachedUpdateBlock().getPayload().flip());
-             return;
-             }*/
+        synchronized (otherPlayer) {
+          /*  if (otherPlayer.hasCachedUpdateBlock() && otherPlayer != player && !forceAppearance) {
+                packet.put(otherPlayer.getCachedUpdateBlock().getPayload().flip());
+                return;
+            }*/
             /*
              * We have to construct and cache our own block.
              */
@@ -396,8 +396,10 @@ public class PlayerUpdateTask implements Task {
      * @param otherPlayer The player.
      */
     private void appendAnimationUpdate(PacketBuilder block, Player otherPlayer) {
-        block.putShort(otherPlayer.getCurrentAnimation().getId());
-        block.putByteS((byte) otherPlayer.getCurrentAnimation().getDelay());
+       //TODO: CHEAP FIX!! Caused errors if you attacked someone and clicked away
+        Animation anim = otherPlayer.getCurrentAnimation() != null ? otherPlayer.getCurrentAnimation() : Animation.create(-1,0);
+        block.putShort(anim.getId());
+        block.putByteS((byte) anim.getDelay());
     }
 
     /**

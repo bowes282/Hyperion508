@@ -4,7 +4,6 @@ import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.hyperion.data.Persistable;
 import org.hyperion.rs2.action.ActionQueue;
-import org.hyperion.rs2.action.impl.AttackAction;
 import org.hyperion.rs2.tickable.impl.DeathTick;
 import org.hyperion.rs2.model.Damage.Hit;
 import org.hyperion.rs2.model.Damage.HitType;
@@ -615,7 +614,7 @@ public class Player extends Entity implements Persistable {
             setAggressorState(false);
             if (isAutoRetaliating()) {
                 face(source.getLocation());
-                getActionQueue().addAction(new AttackAction(this, source));
+               // getActionQueue().addAction(new AttackAction(this, source)); TODO: umm
             }
         }
         if (skills.getLevel(Skills.HITPOINTS) <= 0) {

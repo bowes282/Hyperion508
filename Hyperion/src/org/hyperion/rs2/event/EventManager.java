@@ -1,8 +1,7 @@
 package org.hyperion.rs2.event;
 
-import org.hyperion.rs2.GameEngine;
-
 import java.util.concurrent.TimeUnit;
+import org.hyperion.rs2.GameEngine;
 
 public class EventManager {
 

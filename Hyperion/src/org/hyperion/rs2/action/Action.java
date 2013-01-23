@@ -19,7 +19,8 @@ public abstract class Action extends Event {
         /**
          * This indicates actions will never be queued.
          */
-        NEVER,}
+        NEVER,
+    }
 
     /**
      * A queue policy determines whether the action can occur while walking.
@@ -40,7 +41,8 @@ public abstract class Action extends Event {
         /**
          * This indicates actions can continue while following.
          */
-        FOLLOW,}
+        FOLLOW,
+    }
     /**
      * The
      * <code>Player</code> associated with this ActionEvent.

@@ -1,8 +1,7 @@
 package org.hyperion.rs2.model;
 
-import org.hyperion.rs2.tickable.impl.CooldownTick;
-
 import java.util.BitSet;
+import org.hyperion.rs2.tickable.impl.CooldownTick;
 
 public class EntityCooldowns {
 
@@ -27,13 +26,14 @@ public class EntityCooldowns {
          */
         RANGED_SHOT,
         /**
-         * Represents a spellcasting cooldown.
+         * Represents a spell casting cooldown.
          */
         SPELL_CAST,
         /**
-         * Represents a special attack bar segmentcooldown.
+         * Represents a special attack bar segment cooldown.
          */
-        SPECIAL_ATTACK,}
+        SPECIAL_ATTACK
+    }
 
     /**
      * Checks if an update required.

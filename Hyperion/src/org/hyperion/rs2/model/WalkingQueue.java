@@ -125,8 +125,7 @@ public class WalkingQueue {
     public void reset() {
         runQueue = false;
         waypoints.clear();
-        waypoints.add(new Point(entity.getLocation().getX(), entity
-                .getLocation().getY(), -1));
+        waypoints.add(new Point(entity.getLocation().getX(), entity.getLocation().getY(), -1));
     }
 
     /**

@@ -1,9 +1,5 @@
 package org.hyperion.rs2.model;
 
-import org.apache.mina.core.buffer.IoBuffer;
-import org.hyperion.rs2.util.IoBufferUtils;
-import org.hyperion.util.Buffers;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -11,6 +7,9 @@ import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel.MapMode;
 import java.util.logging.Logger;
+import org.apache.mina.core.buffer.IoBuffer;
+import org.hyperion.rs2.util.IoBufferUtils;
+import org.hyperion.util.Buffers;
 
 /**
  * <p> Represents a type of NPC. </p>

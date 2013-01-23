@@ -1,13 +1,13 @@
 package org.hyperion.rs2.packet;
 
-import org.hyperion.rs2.packet.impl.DefaultPacket;
-
-import org.hyperion.rs2.Constants;
 import org.hyperion.rs2.action.Action;
-import org.hyperion.rs2.action.impl.AttackAction;
 import org.hyperion.rs2.model.Player;
 import org.hyperion.rs2.model.World;
 import org.hyperion.rs2.net.Packet;
+import org.hyperion.rs2.packet.impl.DefaultPacket;
+import org.hyperion.rs2.packet.impl.PlayerOptionPacket.PlayerOptionAttack;
+import org.hyperion.rs2.packet.impl.PlayerOptionPacket.PlayerOptionThree;
+import org.hyperion.rs2.packet.impl.PlayerOptionPacket.PlayerOptionTwo;
 
 public class PlayerOptionPacketHandler implements PacketHandler {
 
@@ -18,18 +18,17 @@ public class PlayerOptionPacketHandler implements PacketHandler {
                 /*
                  * Option 1.
                  */
-                option1(player, packet);
-                break;
-            case 37:            /*
+                return attack(player, packet);
+            case 37:
+                /*
                  * Option 2.
                  */
-                option2(player, packet);
-                break;
-            case 227:            /*
+                return option2(player, packet);
+            case 227:
+                /*
                  * Option 3.
                  */
-                option3(player, packet);
-                break;
+                return option3(player, packet);
         }
         return new DefaultPacket();
     }
@@ -40,17 +39,12 @@ public class PlayerOptionPacketHandler implements PacketHandler {
      * @param player
      * @param packet
      */
-    private void option1(final Player player, Packet packet) {
-        final int id = packet.getLEShortA() & 0xFFFF;
-        if (id < 0 || id >= Constants.MAX_PLAYERS) {
-            return;
-        }
+    private PacketListener attack(final Player player, Packet packet) {
+        final int id = packet.getLEShort() & 0xFFFF;
         player.getActionSender().sendDebugPacket(packet.getOpcode(), "Player Option 1", new Object[]{"id=" + id});
 
-        final Player victim = (Player) World.getWorld().getPlayers().get(id);
-        if (victim != null && player.getLocation().isWithinInteractionDistance(victim.getLocation())) {
-            player.getActionQueue().addAction(new AttackAction(player, victim));
-        }
+        final Player target = (Player) World.getWorld().getPlayers().get(id);
+        return new PlayerOptionAttack(target);
     }
 
     /**
@@ -59,18 +53,15 @@ public class PlayerOptionPacketHandler implements PacketHandler {
      * @param player
      * @param packet
      */
-    private void option2(Player player, Packet packet) {
+    private PacketListener option2(Player player, Packet packet) {
         int id = packet.getShort() & 0xFFFF;
-        if (id < 0 || id >= Constants.MAX_PLAYERS) {
-            return;
-        }
         player.getActionSender().sendDebugPacket(packet.getOpcode(), "Player Option 2", new Object[]{"id=" + id});
 
         Player target = (Player) World.getWorld().getPlayers().get(id);
         if (target != null) {
             player.setInteractingEntity(target);
         }
-
+        return new PlayerOptionTwo(target);
     }
 
     /**
@@ -79,11 +70,8 @@ public class PlayerOptionPacketHandler implements PacketHandler {
      * @param player
      * @param packet
      */
-    private void option3(final Player player, Packet packet) {
+    private PacketListener option3(final Player player, Packet packet) {
         int id = packet.getLEShortA() & 0xFFFF;
-        if (id < 0 || id >= Constants.MAX_PLAYERS) {
-            return;
-        }
         player.getActionSender().sendDebugPacket(packet.getOpcode(), "Player Option 3", new Object[]{"id=" + id});
 
         final Player target = (Player) World.getWorld().getPlayers().get(id);
@@ -104,5 +92,6 @@ public class PlayerOptionPacketHandler implements PacketHandler {
                 this.setDelay(600);
             }
         });
+        return new PlayerOptionThree(target);
     }
 }

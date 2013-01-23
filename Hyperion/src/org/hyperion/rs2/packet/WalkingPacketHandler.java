@@ -18,11 +18,11 @@ public class WalkingPacketHandler implements PacketHandler {
         if (packet.getOpcode() == 119) {
             size -= 14;
         }
+        
+        player.resetInteractingEntity();
         player.getWalkingQueue().reset();
         player.getActionSender().sendCloseInterface();
         player.getActionQueue().clearNonWalkableActions();
-        player.resetInteractingEntity();
-
 
         final int steps = (size - 5) / 2;
         final int firstX = packet.getLEShortA();

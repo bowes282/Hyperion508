@@ -1,5 +1,6 @@
 package org.hyperion.rs2.model;
 
+import org.hyperion.rs2.model.Damage.Hit;
 import org.hyperion.rs2.model.Damage.HitType;
 import org.hyperion.rs2.model.region.Region;
 
@@ -53,8 +54,32 @@ public class NPC extends Entity {
         return getIndex();
     }
 
+    /**
+     * Manages update flags and HP modification when a hit occurs.
+     *
+     * @param source The Entity dealing the blow.
+     */
     @Override
     public void inflictDamage(int damage, HitType type) {
-        // TODO Auto-generated method stub
+        if (!getUpdateFlags().get(UpdateFlags.UpdateFlag.HIT)) {
+            Hit hit = new Hit(damage, type);
+            getDamage().setHit1(hit);
+            getUpdateFlags().flag(UpdateFlags.UpdateFlag.HIT);
+        } else {
+            if (!getUpdateFlags().get(UpdateFlags.UpdateFlag.HIT_2)) {
+                Hit hit = new Hit(damage, type);
+                getDamage().setHit2(hit);
+                getUpdateFlags().flag(UpdateFlags.UpdateFlag.HIT_2);
+            }
+        }
+        //skills.detractLevel(Skills.HITPOINTS, inc.getDamage());
+        setInCombat(true);
+        /*
+         if (skills.getLevel(Skills.HITPOINTS) <= 0) {
+         if (!isDead()) {
+         World.getWorld().submit(new DeathTick(this));
+         }
+         setDead(true);
+         }*/
     }
 }

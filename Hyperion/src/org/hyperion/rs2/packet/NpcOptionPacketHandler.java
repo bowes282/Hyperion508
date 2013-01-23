@@ -9,9 +9,10 @@ import org.hyperion.rs2.model.World;
 import org.hyperion.rs2.net.Packet;
 
 import java.util.logging.Logger;
-import org.hyperion.rs2.packet.impl.ButtonClickPacket;
-import org.hyperion.rs2.packet.impl.NpcOptionPacket;
 import org.hyperion.rs2.packet.impl.NpcOptionPacket.NpcOptionAttack;
+import org.hyperion.rs2.packet.impl.NpcOptionPacket.NpcOptionOne;
+import org.hyperion.rs2.packet.impl.NpcOptionPacket.NpcOptionThree;
+import org.hyperion.rs2.packet.impl.NpcOptionPacket.NpcOptionTwo;
 
 /**
  * Created with IntelliJ IDEA. User: black flag Date: 1/15/13 Time: 9:19 PM
@@ -30,20 +31,17 @@ public class NpcOptionPacketHandler implements PacketHandler {
              * Option 1
              */
             case 7:
-                option1(player, packet);
-                break;
+                return option1(player, packet);
             /*
              * Option 2.
              */
             case 52:
-                option2(player, packet);
-                break;
+                return option2(player, packet);
             /*
              * Option 3.
              */
             case 199:
-                option3(player, packet);
-                break;
+                return option3(player, packet);
             /*
              * Attack.
              */
@@ -61,13 +59,13 @@ public class NpcOptionPacketHandler implements PacketHandler {
      */
     private PacketListener attack(final Player player, Packet packet) {
         int id = packet.getShort() & 0xFFFF;
-        
+
         player.getActionSender().sendDebugPacket(packet.getOpcode(), "NPC Attack Option",
                 new Object[]{"id=" + id});
 
         final NPC npc = (NPC) World.getWorld().getNPCs().get(id);
         player.face(npc.getLocation());
-        
+
         return new NpcOptionAttack(npc);
     }
 
@@ -77,15 +75,14 @@ public class NpcOptionPacketHandler implements PacketHandler {
      * @param player The player
      * @param packet The packet
      */
-    private void option1(final Player player, Packet packet) {
+    private PacketListener option1(final Player player, Packet packet) {
         int id = packet.getShortA() & 0xFFFF;
-        if (id < 0 || id >= Constants.MAX_NPCS) {
-            return;
-        }
+
         player.getActionSender().sendDebugPacket(packet.getOpcode(), "NPC Option 1", new Object[]{"id=" + id});
 
         final NPC npc = (NPC) World.getWorld().getNPCs().get(id);
         player.face(npc.getLocation());
+        return new NpcOptionOne(npc);
     }
 
     /**
@@ -94,15 +91,14 @@ public class NpcOptionPacketHandler implements PacketHandler {
      * @param player The player
      * @param packet The packet
      */
-    private void option2(final Player player, Packet packet) {
+    private PacketListener option2(final Player player, Packet packet) {
         int id = packet.getShortA() & 0xFFFF;
-        if (id < 0 || id >= Constants.MAX_NPCS) {
-            return;
-        }
+
         player.getActionSender().sendDebugPacket(packet.getOpcode(), "NPC Option 2", new Object[]{"id=" + id});
 
         final NPC npc = (NPC) World.getWorld().getNPCs().get(id);
         player.face(npc.getLocation());
+        return new NpcOptionTwo(npc);
     }
 
     /**
@@ -111,15 +107,13 @@ public class NpcOptionPacketHandler implements PacketHandler {
      * @param player The player
      * @param packet The packet
      */
-    private void option3(final Player player, Packet packet) {
+    private PacketListener option3(final Player player, Packet packet) {
         int id = packet.getLEShort() & 0xFFFF;
-        if (id < 0 || id >= Constants.MAX_NPCS) {
-            return;
-        }
+
         player.getActionSender().sendDebugPacket(packet.getOpcode(), "NPC Option 3", new Object[]{"id=" + id});
 
         final NPC npc = (NPC) World.getWorld().getNPCs().get(id);
         player.face(npc.getLocation());
-
+        return new NpcOptionThree(npc);
     }
 }
