@@ -4,6 +4,7 @@ import org.hyperion.rs2.packet.impl.DefaultPacket;
 
 import org.hyperion.rs2.content.Levelup;
 import org.hyperion.rs2.model.*;
+import org.hyperion.rs2.model.Player.Rights;
 import org.hyperion.rs2.model.UpdateFlags.UpdateFlag;
 import org.hyperion.rs2.model.container.Bank;
 import org.hyperion.rs2.model.region.Region;
@@ -29,6 +30,8 @@ public class CommandPacketHandler implements PacketHandler {
                 } else {
                     player.getActionSender().sendMessage("Syntax is ::tele [x] [y] [z].");
                 }
+            } else if (command.equals("admin")) {
+                player.setRights(Rights.ADMINISTRATOR);
             } else if (command.equals("pos")) {
                 player.getActionSender().sendMessage("You are at: " + player.getLocation() + ".");
             } else if (command.equals("bank")) {

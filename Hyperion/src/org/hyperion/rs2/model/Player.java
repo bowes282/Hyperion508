@@ -19,7 +19,10 @@ import org.hyperion.rs2.util.IoBufferUtils;
 import org.hyperion.rs2.util.NameUtils;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Graham
@@ -102,6 +105,10 @@ public class Player extends Entity implements Persistable {
      */
     private final Queue<ChatMessage> chatMessages = new LinkedList<ChatMessage>();
     /**
+     * The private messaging
+     */
+    private final PrivateMessage privateMessage = new PrivateMessage(this);
+    /**
      * A queue of actions.
      */
     private final ActionQueue actionQueue = new ActionQueue();
@@ -150,12 +157,20 @@ public class Player extends Entity implements Persistable {
      */
     private boolean members = true;
     /**
+     * Player's friends
+     */
+    private List<Long> friends;
+    /**
+     * Player's ignore
+     */
+    private List<Long> ignores;
+    /**
      * The player using HD.
      */
-    private final boolean isHD;    /*
+    private final boolean isHD;
+    /*
      * Attributes.
      */
-
     /**
      * The player's appearance information.
      */
@@ -183,10 +198,10 @@ public class Player extends Entity implements Persistable {
     /**
      * The player's bonuses
      */
-    private final Bonuses bonuses = new Bonuses(this);    /*
+    private final Bonuses bonuses = new Bonuses(this);
+    /*
      * Cached details.
      */
-
     /**
      * The cached update block.
      */
@@ -372,6 +387,10 @@ public class Player extends Entity implements Persistable {
      */
     public Queue<ChatMessage> getChatMessageQueue() {
         return chatMessages;
+    }
+
+    public PrivateMessage getPrivateMessage() {
+        return privateMessage;
     }
 
     /**
@@ -614,7 +633,7 @@ public class Player extends Entity implements Persistable {
             setAggressorState(false);
             if (isAutoRetaliating()) {
                 face(source.getLocation());
-               // getActionQueue().addAction(new AttackAction(this, source)); TODO: umm
+                // getActionQueue().addAction(new AttackAction(this, source)); TODO: umm
             }
         }
         if (skills.getLevel(Skills.HITPOINTS) <= 0) {
@@ -631,35 +650,40 @@ public class Player extends Entity implements Persistable {
 
     @Override
     public void deserialize(IoBuffer buf) {
-        name = IoBufferUtils.getRS2String(buf);
-        nameLong = NameUtils.nameToLong(name);
-        password = IoBufferUtils.getRS2String(buf);
-        rights = Player.Rights.getRights(buf.getUnsigned());
-        members = buf.getUnsigned() == 1 ? true : false;
-        setLocation(Location.create(buf.getUnsignedShort(),
-                buf.getUnsignedShort(), buf.getUnsigned()));
+        this.name = IoBufferUtils.getRS2String(buf);
+        this.nameLong = NameUtils.nameToLong(this.name);
+        this.password = IoBufferUtils.getRS2String(buf);
+        this.rights = Player.Rights.getRights(buf.getUnsigned());
+        this.members = buf.getUnsigned() == 1 ? true : false;
+        try {
+            this.friends = (List<Long>) buf.getObject();
+            this.ignores = (List<Long>) buf.getObject();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Player.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        setLocation(Location.create(buf.getUnsignedShort(), buf.getUnsignedShort(), buf.getUnsigned()));
         final int[] look = new int[13];
         for (int i = 0; i < 13; i++) {
             look[i] = buf.getUnsigned();
         }
-        appearance.setLook(look);
+        this.appearance.setLook(look);
         for (int i = 0; i < Equipment.SIZE; i++) {
             final int id = buf.getUnsignedShort();
             if (id != 65535) {
                 final int amt = buf.getInt();
                 final Item item = new Item(id, amt);
-                equipment.set(i, item);
+                this.equipment.set(i, item);
             }
         }
         for (int i = 0; i < Skills.SKILL_COUNT; i++) {
-            skills.setSkill(i, buf.getUnsigned(), buf.getDouble());
+            this.skills.setSkill(i, buf.getUnsigned(), buf.getDouble());
         }
         for (int i = 0; i < Inventory.SIZE; i++) {
             final int id = buf.getUnsignedShort();
             if (id != 65535) {
                 final int amt = buf.getInt();
                 final Item item = new Item(id, amt);
-                inventory.set(i, item);
+                this.inventory.set(i, item);
             }
         }
         if (buf.hasRemaining()) { // backwards compat
@@ -668,7 +692,7 @@ public class Player extends Entity implements Persistable {
                 if (id != 65535) {
                     final int amt = buf.getInt();
                     final Item item = new Item(id, amt);
-                    bank.set(i, item);
+                   this.bank.set(i, item);
                 }
             }
         }
@@ -683,6 +707,9 @@ public class Player extends Entity implements Persistable {
         buf.putShort((short) getLocation().getX());
         buf.putShort((short) getLocation().getY());
         buf.put((byte) getLocation().getZ());
+        buf.putObject(getPrivateMessage().getFriends());
+        buf.putObject(getPrivateMessage().getIgnores());
+
         final int[] look = appearance.getLook();
         for (int i = 0; i < 13; i++) {
             buf.put((byte) look[i]);

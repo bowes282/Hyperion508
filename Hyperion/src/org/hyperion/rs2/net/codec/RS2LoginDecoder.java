@@ -225,12 +225,8 @@ public class RS2LoginDecoder extends CumulativeProtocolDecoder {
                      * checks if the client is on low memory Most likely to tell the
                      * server not to play sounds and such
                      */
-                    @SuppressWarnings("unused")
-                    final boolean lowMemory = (in.get() & 0xFF) == 1 ? true : false;
-                    /*
-                     * checks if the client is HD
-                     */
-                    final boolean isHD = false;//(in.get() & 0xff) == 1 ? true : false;
+                   // @SuppressWarnings("unused")
+                    final boolean isHD = (in.get() & 0xFF) == 1 ? true : false;
 
                     in.getInt();
                     for (int i = 0; i < 24; i++) {

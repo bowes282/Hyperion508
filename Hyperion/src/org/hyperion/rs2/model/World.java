@@ -293,8 +293,7 @@ public final class World {
                         }
                     });
                 } else {
-                    lr.getPlayer().getSession()
-                            .setAttribute("player", lr.getPlayer());
+                    lr.getPlayer().getSession().setAttribute("player", lr.getPlayer());
                     // loader.loadPlayer(lr.getPlayer());
                     engine.pushTask(new SessionLoginTask(lr.getPlayer()));
                 }
@@ -339,7 +338,7 @@ public final class World {
         });
         if (returnCode == 2) {
             logger.info("Registered player : " + player + " [online=" + players.size() + "]");
-            //player.getFriends().registered();
+            player.getPrivateMessage().registered();
         }
     }
 
@@ -353,12 +352,14 @@ public final class World {
         player.destroy();
         player.getSession().close(false);
         players.remove(player);
+        player.getPrivateMessage().unregistered();
         logger.info("Unregistered player : " + player + " [online=" + players.size() + "]");
-        /*
-         * engine.submitWork(new Runnable() {
-         * 
-         * @Override public void run() { loader.savePlayer(player); } });
-         */
+        /*engine.submitWork(new Runnable() {
+         @Override
+         public void run() {
+         loader.savePlayer(player);
+         }
+         });*/
     }
 
     /**

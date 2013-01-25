@@ -62,6 +62,7 @@ public final class ActionSender {
         sendMapRegion();
         sendWelcomeScreen();
         sendSidebar();
+        player.getPrivateMessage().initialize();
 
         /*
          * Sends player's data.
@@ -634,15 +635,15 @@ public final class ActionSender {
      * @param world The world id.
      */
     public ActionSender sendFriend(long name, int world) {
-        final PacketBuilder packet = new PacketBuilder(2, Type.VARIABLE).putLong(name).putShort(world).put((byte) 1);
-        /*if(world != 0) {
-         if(world == player.getWorld()) {
-         packet.putRS2String("Online");
-         } else {
-         packet.putRS2String("RuneScape " + world);
-         }
-         }*/
-        packet.putRS2String("Online");
+        final PacketBuilder packet = new PacketBuilder(154, Type.VARIABLE)
+                .putLong(name).putShort(world).put((byte) 1);
+        if (world != 0) {
+            if (world == world) {
+                packet.putRS2String("ONLINE");
+            } else {
+                packet.putRS2String("ScapeRune " + world);
+            }
+        }
         player.getSession().write(packet.toPacket());
         return this;
     }
@@ -657,13 +658,25 @@ public final class ActionSender {
         return this;
     }
 
-    /**
-     * Sends the message to the sender.
-     */
-    public ActionSender sendSenderMessage(long name, String message) {
+    public ActionSender sendPrivateMessage(long name, String message) {
         byte[] bytes = new byte[message.length()];
         ChatUtils.encryptPlayerChat(bytes, 0, 0, message.length(), message.getBytes());
-        player.getSession().write(new PacketBuilder(89, Type.VARIABLE).putLong(name).put((byte) message.length()).put(bytes).toPacket());
+        player.getSession().write(new PacketBuilder(89, Type.VARIABLE).putLong(name)
+                .put((byte) message.length()).put(bytes).toPacket());
+        return this;
+    }
+
+    public ActionSender sendReceivedPrivateMessage(long name, int rights, String message) {
+        int messageCounter = player.getPrivateMessage().getLastMessageIndex();
+        byte[] bytes = new byte[message.length() + 1];
+        bytes[0] = (byte) message.length();
+        ChatUtils.encryptPlayerChat(bytes, 0, 1, message.length(), message.getBytes());
+        player.getSession().write(new PacketBuilder(178, Type.VARIABLE)
+                .putLong(name)
+                .putShort(1)
+                .put(new byte[]{(byte) ((messageCounter << 16) & 0xFF), (byte) ((messageCounter << 8) & 0xFF), (byte) (messageCounter & 0xFF)})
+                .put((byte) rights)
+                .put(bytes).toPacket());
         return this;
     }
 
