@@ -1,25 +1,23 @@
 package org.hyperion.rs2.model;
 
-import org.hyperion.util.Buffers;
-
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 import java.util.logging.Logger;
+import org.hyperion.util.Buffers;
 
 public class ItemDefinition {
 
     /**
      * Logger instance.
      */
-    private static final Logger logger = Logger.getLogger(ItemDefinition.class
-            .getName());
+    private static final Logger logger = Logger.getLogger(ItemDefinition.class.getName());
     /**
      * Max amount of items.
      */
-    public static final int MAX_ITEMS = 14606;
+    public static final int MAX_ITEMS = 11633;
     /**
      * The definition array.
      */
@@ -31,13 +29,11 @@ public class ItemDefinition {
      * @throws IOException
      */
     public static void load() throws IOException {
-        logger.info("Loading item definitions...");
-        final RandomAccessFile raf = new RandomAccessFile(
-                "data/itemDefinitions.dat.gz", "r");
+        logger.info("Loading Item Definitions...");
+        final RandomAccessFile raf = new RandomAccessFile("./data/itemDefinitions.dat", "r");
         final FileChannel channel = raf.getChannel();
-        final ByteBuffer buf = channel
-                .map(MapMode.READ_ONLY, 0, channel.size());
-        final int length = buf.getShort();
+        final ByteBuffer buf = channel.map(MapMode.READ_ONLY, 0, channel.size());
+        final int length = buf.getInt();
         try {
             if (length != MAX_ITEMS) {
                 throw new IOException("MAX_ITEMS");
@@ -51,6 +47,10 @@ public class ItemDefinition {
                 final short equipId = buf.getShort();
                 final boolean noted = buf.get() == 1;
                 final boolean stackable = buf.get() == 1;
+                final ItemPrice price = new ItemPrice();
+                price.normPrice = buf.getInt();
+                price.minPrice = buf.getInt();
+                price.maxPrice = buf.getInt();
 
                 final int[] bonuses = new int[13];
                 for (int j = 0; j < 13; j++) {
@@ -59,7 +59,7 @@ public class ItemDefinition {
                 final String name = Buffers.readString(buf);
                 final String examine = Buffers.readString(buf);
                 definitions[i] = new ItemDefinition(i, name, examine, noted,
-                        stackable, equipId, bonuses);
+                        stackable, equipId, bonuses, price);
                 size++;
             }
             logger.info("Loaded and defined " + size + " item definitions.");
@@ -106,6 +106,10 @@ public class ItemDefinition {
      * The bonuses.
      */
     private final int[] bonus;
+    /**
+     * The price
+     */
+    private final ItemPrice price;
 
     /**
      * Creates the item definition.
@@ -119,12 +123,10 @@ public class ItemDefinition {
      * @param parentId The non-noted id.
      * @param notedId The noted id.
      * @param members The members flag.
-     * @param shopValue The shop price.
-     * @param highAlcValue The high alc value.
-     * @param lowAlcValue The low alc value.
+     * @param price The prices of the item
      */
     private ItemDefinition(int id, String name, String examine, boolean noted,
-            boolean stackable, int equipId, int[] bonus) {
+            boolean stackable, int equipId, int[] bonus, ItemPrice price) {
         this.id = id;
         this.name = name;
         this.examine = examine;
@@ -132,6 +134,7 @@ public class ItemDefinition {
         this.stackable = stackable;
         this.equipId = equipId;
         this.bonus = bonus;
+        this.price = price;
     }
 
     /**
@@ -204,5 +207,57 @@ public class ItemDefinition {
      */
     public int getBonus(int id) {
         return bonus[id];
+    }
+
+    /**
+     * Gets the item prices
+     *
+     * @return The prices
+     */
+    public ItemPrice getPrice() {
+        return price;
+    }
+
+    public static class ItemPrice {
+
+        /**
+         * The minimum price
+         */
+        private int minPrice;
+        /**
+         * The max price
+         */
+        private int maxPrice;
+        /**
+         * The normal price
+         */
+        private int normPrice;
+
+        /**
+         * Gets the minimum price
+         *
+         * @return minPrice The minimum price
+         */
+        public int getMinimumPrice() {
+            return minPrice;
+        }
+
+        /**
+         * Gets the maximum price
+         *
+         * @return maxPrice The maximum price
+         */
+        public int getMaximumPrice() {
+            return maxPrice;
+        }
+
+        /**
+         * Gets the normal price
+         *
+         * @return normPrice The normal price
+         */
+        public int getNormalPrice() {
+            return normPrice;
+        }
     }
 }

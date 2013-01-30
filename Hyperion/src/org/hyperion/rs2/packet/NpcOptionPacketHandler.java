@@ -92,7 +92,7 @@ public class NpcOptionPacketHandler implements PacketHandler {
      * @param packet The packet
      */
     private PacketListener option2(final Player player, Packet packet) {
-        int id = packet.getShortA() & 0xFFFF;
+        int id = packet.getLEShortA() & 0xFFFF;
 
         player.getActionSender().sendDebugPacket(packet.getOpcode(), "NPC Option 2", new Object[]{"id=" + id});
 

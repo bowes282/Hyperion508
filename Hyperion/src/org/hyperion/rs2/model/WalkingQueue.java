@@ -62,6 +62,11 @@ public class WalkingQueue {
      * Run for this queue (CTRL-CLICK) toggle.
      */
     private boolean runQueue = false;
+    /**
+     * Facing directions
+     */
+    public static final int NORTH = 1, SOUTH = 6, EAST = 4, WEST = 3,
+            NORTH_EAST = 2, SOUTH_EAST = 7, NORTH_WEST = 0, SOUTH_WEST = 5;
 
     /**
      * Creates the

@@ -14,8 +14,7 @@ public class Streams {
      * @param string The string.
      * @throws IOException if an I/O error occurs, such as the stream closing.
      */
-    public static void writeString(OutputStream out, String string)
-            throws IOException {
+    public static void writeString(OutputStream out, String string) throws IOException {
         for (final char c : string.toCharArray()) {
             out.write((byte) c);
         }
@@ -68,8 +67,7 @@ public class Streams {
      * @param line The line.
      * @throws IOException if an I/O error occurs, such as the stream closing.
      */
-    public static void writeLine(OutputStream out, String line)
-            throws IOException {
+    public static void writeLine(OutputStream out, String line) throws IOException {
         out.write((line + "\n").getBytes());
     }
 

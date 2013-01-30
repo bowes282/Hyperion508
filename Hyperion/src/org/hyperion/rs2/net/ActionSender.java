@@ -1,5 +1,6 @@
 package org.hyperion.rs2.net;
 
+import java.util.Map;
 import org.apache.mina.core.future.IoFutureListener;
 import org.hyperion.rs2.Constants;
 import org.hyperion.rs2.model.*;
@@ -86,8 +87,8 @@ public final class ActionSender {
         player.getEquipment().addListener(equipmentListener);
         player.getEquipment().addListener(new EquipmentContainerListener(player));
         player.getEquipment().addListener(new WeaponContainerListener(player));
-
-        World.getWorld().getScriptEvents().sendPacketEvent("login", player, null);
+        
+        World.getWorld().getScriptEvents().sendEvent("login", World.getWorld().getRubyEnvironment().setParams("player", player).setParams("packet", this).getParams());
         return this;
     }
 

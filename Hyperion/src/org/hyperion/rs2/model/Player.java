@@ -1,10 +1,14 @@
 package org.hyperion.rs2.model;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.hyperion.data.Persistable;
 import org.hyperion.rs2.action.ActionQueue;
-import org.hyperion.rs2.tickable.impl.DeathTick;
 import org.hyperion.rs2.model.Damage.Hit;
 import org.hyperion.rs2.model.Damage.HitType;
 import org.hyperion.rs2.model.UpdateFlags.UpdateFlag;
@@ -15,14 +19,9 @@ import org.hyperion.rs2.model.container.Inventory;
 import org.hyperion.rs2.model.region.Region;
 import org.hyperion.rs2.net.ActionSender;
 import org.hyperion.rs2.net.Packet;
+import org.hyperion.rs2.tickable.impl.DeathTick;
 import org.hyperion.rs2.util.IoBufferUtils;
 import org.hyperion.rs2.util.NameUtils;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author Graham
@@ -692,7 +691,7 @@ public class Player extends Entity implements Persistable {
                 if (id != 65535) {
                     final int amt = buf.getInt();
                     final Item item = new Item(id, amt);
-                   this.bank.set(i, item);
+                    this.bank.set(i, item);
                 }
             }
         }
@@ -764,5 +763,15 @@ public class Player extends Entity implements Persistable {
 
     @Override
     public void inflictDamage(int damage, HitType type) {
+    }
+
+    @Override
+    public boolean isPlayer() {
+        return true;
+    }
+
+    @Override
+    public boolean isNPC() {
+        return false;
     }
 }

@@ -1,7 +1,5 @@
 package org.hyperion.rs2.packet;
 
-import org.hyperion.rs2.packet.impl.DefaultPacket;
-
 import org.hyperion.rs2.content.Levelup;
 import org.hyperion.rs2.model.*;
 import org.hyperion.rs2.model.Player.Rights;
@@ -9,6 +7,7 @@ import org.hyperion.rs2.model.UpdateFlags.UpdateFlag;
 import org.hyperion.rs2.model.container.Bank;
 import org.hyperion.rs2.model.region.Region;
 import org.hyperion.rs2.net.Packet;
+import org.hyperion.rs2.packet.impl.CommandPacket;
 
 public class CommandPacketHandler implements PacketHandler {
 
@@ -18,35 +17,7 @@ public class CommandPacketHandler implements PacketHandler {
         final String[] args = commandString.split(" ");
         final String command = args[0].toLowerCase();
         try {
-            if (command.equals("tele")) {
-                if (args.length == 3 || args.length == 4) {
-                    final int x = Integer.parseInt(args[1]);
-                    final int y = Integer.parseInt(args[2]);
-                    int z = player.getLocation().getZ();
-                    if (args.length == 4) {
-                        z = Integer.parseInt(args[3]);
-                    }
-                    player.setTeleportTarget(Location.create(x, y, z));
-                } else {
-                    player.getActionSender().sendMessage("Syntax is ::tele [x] [y] [z].");
-                }
-            } else if (command.equals("admin")) {
-                player.setRights(Rights.ADMINISTRATOR);
-            } else if (command.equals("pos")) {
-                player.getActionSender().sendMessage("You are at: " + player.getLocation() + ".");
-            } else if (command.equals("bank")) {
-                Bank.open(player);
-            } else if (command.equals("chat")) {
-                player.setForceText(args[1]);
-                player.getUpdateFlags().flag(UpdateFlag.FORCED_CHAT);
-            } else if (command.equals("debug")) {
-                if (!player.isDebugging()) {
-                    player.isDebugging(true);
-                } else {
-                    player.isDebugging(false);
-                }
-                player.getActionSender().sendMessage("Debug Mode: " + player.isDebugging());
-            } else if (command.equals("spawn")) {
+             if (command.equals("spawn")) {
                 NPC npc = new NPC(NPCDefinition.forId(Integer.parseInt(args[1])));
                 npc.setLocation(player.getLocation());
                 Region region = World.getWorld().getRegionManager().getRegionByLocation(npc.getLocation());
@@ -58,17 +29,6 @@ public class CommandPacketHandler implements PacketHandler {
                 player.getActionSender().sendMessage("There are currently " + Thread.activeCount() + " active thread(s) running!");
             } else if (command.equals("interface")) {
                 player.getActionSender().sendInterface(Integer.valueOf(args[1]));
-            } else if (command.equals("item")) {
-                if (args.length == 2 || args.length == 3) {
-                    final int id = Integer.parseInt(args[1]);
-                    int count = 1;
-                    if (args.length == 3) {
-                        count = Integer.parseInt(args[2]);
-                    }
-                    player.getInventory().add(new Item(id, count));
-                } else {
-                    player.getActionSender().sendMessage("Syntax is ::item [id] [count].");
-                }
             } else if (command.equals("anim")) {
                 if (args.length == 2 || args.length == 3) {
                     final int id = Integer.parseInt(args[1]);
@@ -112,9 +72,8 @@ public class CommandPacketHandler implements PacketHandler {
                 }
             }
         } catch (final Exception ex) {
-            player.getActionSender().sendMessage(
-                    "Error while processing command.");
+            player.getActionSender().sendMessage("Error while processing command.");
         }
-        return new DefaultPacket();
+        return new CommandPacket(command, args);
     }
 }

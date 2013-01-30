@@ -281,10 +281,10 @@ public class PlayerUpdateTask implements Task {
          * We can used the cached update block!
          */
         synchronized (otherPlayer) {
-          /*  if (otherPlayer.hasCachedUpdateBlock() && otherPlayer != player && !forceAppearance) {
-                packet.put(otherPlayer.getCachedUpdateBlock().getPayload().flip());
-                return;
-            }*/
+            /*  if (otherPlayer.hasCachedUpdateBlock() && otherPlayer != player && !forceAppearance) {
+             packet.put(otherPlayer.getCachedUpdateBlock().getPayload().flip());
+             return;
+             }*/
             /*
              * We have to construct and cache our own block.
              */
@@ -315,7 +315,10 @@ public class PlayerUpdateTask implements Task {
             }
             if (flags.get(UpdateFlag.HIT_2)) {
                 mask |= 0x200;
-            }
+            }/*
+            if (flags.get(UpdateFlag.FACE_COORDINATE)) {
+                mask |= 0x40;
+            }*/
 
             /*
              * Check if the bitmask would overflow a byte.
@@ -357,7 +360,10 @@ public class PlayerUpdateTask implements Task {
             }
             if (flags.get(UpdateFlag.HIT_2)) {
                 appendHit2Update(otherPlayer, block);
-            }
+            }/*
+            if (flags.get(UpdateFlag.FACE_COORDINATE)) {
+                appendFaceCoordinateUpdate(otherPlayer, block);
+            }*/
             /*
              * Convert the block builder to a packet.
              */
@@ -389,6 +395,10 @@ public class PlayerUpdateTask implements Task {
         updateBlock.putByteA(p.getDamage().getHitType2());
     }
 
+    private static void appendFaceCoordinateUpdate(final Player p, final PacketBuilder updateBlock) {
+        updateBlock.putLEShort(p.getLocation().getX()).putShortA(p.getLocation().getY());
+    }
+
     /**
      * Appends an animation update.
      *
@@ -396,8 +406,8 @@ public class PlayerUpdateTask implements Task {
      * @param otherPlayer The player.
      */
     private void appendAnimationUpdate(PacketBuilder block, Player otherPlayer) {
-       //TODO: CHEAP FIX!! Caused errors if you attacked someone and clicked away
-        Animation anim = otherPlayer.getCurrentAnimation() != null ? otherPlayer.getCurrentAnimation() : Animation.create(-1,0);
+        //TODO: CHEAP FIX!! Caused errors if you attacked someone and clicked away
+        Animation anim = otherPlayer.getCurrentAnimation() != null ? otherPlayer.getCurrentAnimation() : Animation.create(-1, 0);
         block.putShort(anim.getId());
         block.putByteS((byte) anim.getDelay());
     }

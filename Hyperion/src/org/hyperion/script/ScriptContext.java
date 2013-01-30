@@ -31,4 +31,5 @@ public class ScriptContext {
     public World getWorld() {
         return world;
     }
+    //add other crap here
 }

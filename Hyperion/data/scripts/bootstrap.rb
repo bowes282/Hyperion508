@@ -22,6 +22,7 @@ class Context
   end
 end
 
+
 @handlers = {}
 
 def on(event_name, &block)
@@ -43,4 +44,3 @@ def load_handlers
 end
 
 load_handlers
-

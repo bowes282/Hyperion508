@@ -1,5 +1,6 @@
 package org.hyperion.script;
 
+import java.util.Map;
 import org.hyperion.rs2.model.Player;
 import org.hyperion.rs2.model.World;
 import org.hyperion.rs2.packet.PacketListener;
@@ -31,13 +32,23 @@ public class ScriptEvents {
     public ScriptEvents(World world) {
         this.world = world;
     }
-    
+
     /**
-     * Sends the event
+     * Sends a custom event
+     *
+     * @param eventName The custom event name
+     * @param params The parameters of the event
+     */
+    public void sendEvent(String eventName, Map<String, Object> params) {
+        world.getRubyEnvironment().callScripts(eventName, params);
+    }
+
+    /**
+     * Send a packet event
      *
      * @param eventName The name of the event
      * @param player The player to send the event to
-     * @param packetRep The packet the packet related to the event
+     * @param packetRep The packet of the event
      */
     public void sendPacketEvent(String eventName, Player player, PacketListener packetRep) {
         /**

@@ -82,4 +82,14 @@ public class NPC extends Entity {
          setDead(true);
          }*/
     }
+
+    @Override
+    public boolean isPlayer() {
+        return false;
+    }
+
+    @Override
+    public boolean isNPC() {
+        return true;
+    }
 }

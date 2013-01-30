@@ -1,6 +1,6 @@
 require 'bootstrap'
 
-on :button_click do |c|
+on :button_click do |c, game|
   case c.packet.interfaceId
 
     # close welcome screen button
@@ -21,7 +21,6 @@ on :button_click do |c|
       c.player.get_action_sender.send_interface 667
       c.player.get_bonuses.item_changed
     end
-
-
+    
   end
 end

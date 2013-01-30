@@ -31,7 +31,6 @@ public class GenericWorldLoader implements WorldLoader {
                     InputStream is = new GZIPInputStream(new FileInputStream(f));
                     String name = Streams.readRS2String(is);
                     String pass = Streams.readRS2String(is);
-                    
                     if (!name.equals(NameUtils.formatName(pd.getName()))) {
                         code = 3;
                     }

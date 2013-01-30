@@ -174,7 +174,7 @@ public class NPCUpdateTask implements Task {
         int xPos = npc.getLocation().getX() - player.getLocation().getX();
         packet.putBits(5, yPos);
         packet.putBits(5, xPos);
-        packet.putBits(3, 0);
+        packet.putBits(3, npc.getDirection());//NPC DIRECTION
         packet.putBits(1, 1);
     }
 
@@ -228,13 +228,16 @@ public class NPCUpdateTask implements Task {
         if (flags.get(UpdateFlag.HIT)) {
             mask |= 0x4;
         }
+
         /*if(flags.get(UpdateFlag.FORCED_CHAT)) {
          mask |= 0x20;
          }
          if(flags.get(UpdateFlag.FACE_COORDINATE)) {
          mask |= 0x200;
          }
-		
+         if (flags.get(UpdateFlag.FACE_COORDINATE)) {
+         mask |= 0x40;
+         }	
          if(flags.get(UpdateFlag.FORCED_MOVEMENT)) {
          mask |= 0x80;
          }*/

@@ -157,7 +157,7 @@ public final class World {
      * not found.
      * @throws IllegalAccessException if a class could not be accessed.
      * @throws InstantiationException if a class could not be created.
-     * @throws IllegalStateException if the world is already initialised.
+     * @throws IllegalStateException if the world is already initialized.
      */
     public void init(GameEngine engine) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         if (this.engine != null) {

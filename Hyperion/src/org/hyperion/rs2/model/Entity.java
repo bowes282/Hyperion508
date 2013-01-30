@@ -1,10 +1,9 @@
 package org.hyperion.rs2.model;
 
-import org.hyperion.rs2.model.UpdateFlags.UpdateFlag;
-import org.hyperion.rs2.model.region.Region;
-
 import java.util.LinkedList;
 import java.util.List;
+import org.hyperion.rs2.model.UpdateFlags.UpdateFlag;
+import org.hyperion.rs2.model.region.Region;
 
 /**
  * @author Graham
@@ -24,6 +23,10 @@ public abstract class Entity {
      * The current location.
      */
     private Location location;
+    /**
+     * The direction of the entity
+     */
+    private int direction = WalkingQueue.SOUTH;
     /**
      * The entity's first stored hit for updates.
      */
@@ -519,6 +522,15 @@ public abstract class Entity {
     }
 
     /**
+     * Sets the direction that the entity is facing.
+     *
+     * @param direction The direction to set.
+     */
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+
+    /**
      * Destroys this entity.
      */
     public void destroy() {
@@ -526,26 +538,13 @@ public abstract class Entity {
     }
 
     /**
-     * Deal a hit to the entity.
+     * Gets the direction this entity is facing.
      *
-     * @param damage The damage to be done.
-     * @param type The type of damage we are inflicting.
+     * @return The direction this entity is facing.
      */
-    public abstract void inflictDamage(int damage, Damage.HitType type);
-
-    /**
-     * Removes this entity from the specified region.
-     *
-     * @param region The region.
-     */
-    public abstract void removeFromRegion(Region region);
-
-    /**
-     * Adds this entity to the specified region.
-     *
-     * @param region The region.
-     */
-    public abstract void addToRegion(Region region);
+    public int getDirection() {
+        return direction;
+    }
 
     /**
      * Gets the current location.
@@ -584,9 +583,40 @@ public abstract class Entity {
     }
 
     /**
+     * Deal a hit to the entity.
+     *
+     * @param damage The damage to be done.
+     * @param type The type of damage we are inflicting.
+     */
+    public abstract void inflictDamage(int damage, Damage.HitType type);
+
+    /**
+     * Removes this entity from the specified region.
+     *
+     * @param region The region.
+     */
+    public abstract void removeFromRegion(Region region);
+
+    /**
+     * Adds this entity to the specified region.
+     *
+     * @param region The region.
+     */
+    public abstract void addToRegion(Region region);
+
+    /**
      * Gets the client-side index of an entity.
      *
      * @return The client-side index.
      */
     public abstract int getClientIndex();
+
+    /**
+     * Checks if the entity is a player
+     */
+    public abstract boolean isPlayer();
+
+    /**
+     */
+    public abstract boolean isNPC();
 }

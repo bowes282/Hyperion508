@@ -1,12 +1,11 @@
 package org.hyperion.rs2.model;
 
-import org.hyperion.rs2.model.region.Region;
-import org.hyperion.rs2.util.xStreamManager;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.logging.Logger;
+import org.hyperion.rs2.model.region.Region;
+import org.hyperion.rs2.util.xStreamManager;
 
 public class NPCSpawn {
 
@@ -39,6 +38,7 @@ public class NPCSpawn {
      */
     public static void spawn(NPCSpawn n) {
         NPC npc = new NPC(NPCDefinition.forId(n.getId()));
+        npc.setDirection(n.getDirection());
         npc.setLocation(n.getSpawnLocation());
         Region region = World.getWorld().getRegionManager().getRegionByLocation(npc.getLocation());
         region.addNpc(npc);

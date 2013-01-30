@@ -78,7 +78,7 @@ public class RubyEnvironment implements ScriptEnvironment {
      */
     @Override
     public void setContext(ScriptContext context) {
-        container.put("$ctx", context);
+        container.put("game", context);
     }
 
     /**
